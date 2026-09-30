@@ -1483,6 +1483,9 @@ input[type=date].input__control, input[type=time].input__control { cursor: point
   .statusbar { display: none; }
   body.is-fullscreen .statusbar { display: flex; }
   body.is-fullscreen .home-indicator { display: block; }
+  /* Full screen: reserve the mock status bar's real height, so the sticky
+     header sits right below it instead of underneath it. */
+  body.is-fullscreen { --sb: var(--status-bar-h); --hi: var(--home-indicator-h); }
 
   /* Keyboard open: shrink the visible area so bottom sheets and pickers
      sit above the keyboard instead of behind it. */
