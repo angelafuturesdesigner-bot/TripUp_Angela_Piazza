@@ -59,12 +59,16 @@
     })();
   </script>
   <script>
-  document.addEventListener('click', () => {
-    const el = document.documentElement;
-    if (!document.fullscreenElement && el.requestFullscreen) {
-      el.requestFullscreen().catch(() => {});
+    // Mobile (Android/Chrome): first tap switches to full screen. No effect on iPhone or desktop.
+    function goFullscreen() {
+      var el = document.documentElement;
+      if (document.fullscreenElement || window.innerWidth > 600) return;
+      if (el.requestFullscreen) { el.requestFullscreen().catch(function () {}); }
+      else if (el.webkitRequestFullscreen) { el.webkitRequestFullscreen(); }
     }
-  }, { once: true });
-</script>
+    document.addEventListener('pointerup', goFullscreen, true);
+    document.addEventListener('touchend', goFullscreen, true);
+    document.addEventListener('click', goFullscreen, true);
+  </script>
 </body>
 </html>
