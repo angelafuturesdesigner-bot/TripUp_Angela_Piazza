@@ -1640,7 +1640,7 @@ const actions = {
   'plan-type': (el) => { const l = layerOf(el); openPicker('Type', ['Restaurant', 'Activity', 'Transport', 'Stay'].map((v) => ({ value: v, label: v })), l.ui.type, (v) => { l.ui.type = v; SCREENS.plan.render(l); }); },
   'plan-mode': (el) => { const l = layerOf(el); l.ui.mode = el.dataset.value; SCREENS.plan.render(l); },
   'plan-toggle': (el) => { const l = layerOf(el); l.ui[el.dataset.key] = !l.ui[el.dataset.key]; SCREENS.plan.render(l); },
-  'add-option': (el) => { const l = layerOf(el); l.ui.options.push(''); SCREENS.plan.render(l); $(`[data-input=option][data-index="${l.ui.options.length - 1}"]`, l.el)?.focus(); },
+  'add-option': (el) => { const l = layerOf(el); l.ui.options.push(''); SCREENS.plan.render(l); const f = $(`[data-input=option][data-index="${l.ui.options.length - 1}"]`, l.el); f?.focus(); if (f) setTimeout(() => f.scrollIntoView({ block: 'center', behavior: 'smooth' }), 320); },
   'clear-option': (el) => { const l = layerOf(el); l.ui.options[+el.dataset.index] = ''; SCREENS.plan.render(l); },
   'create-poll': (el) => { const l = layerOf(el); if (showPlanError(l, true)) createPoll(l.ui); },
   'add-pick': (el) => { const l = layerOf(el); if (showPlanError(l, true)) addPick(l.ui); },

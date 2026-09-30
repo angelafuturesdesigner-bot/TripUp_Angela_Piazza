@@ -59,16 +59,59 @@
     })();
   </script>
   <script>
-    // Mobile (Android/Chrome): first tap switches to full screen. No effect on iPhone or desktop.
-    function goFullscreen() {
-      var el = document.documentElement;
-      if (document.fullscreenElement || window.innerWidth > 600) return;
-      if (el.requestFullscreen) { el.requestFullscreen().catch(function () {}); }
-      else if (el.webkitRequestFullscreen) { el.webkitRequestFullscreen(); }
-    }
-    document.addEventListener('pointerup', goFullscreen, true);
-    document.addEventListener('touchend', goFullscreen, true);
-    document.addEventListener('click', goFullscreen, true);
+    // ---- Mobile helpers (no effect on desktop) ----
+    (function () {
+      var isPhone = function () { return window.innerWidth <= 600; };
+
+      // 1. First tap goes full screen (Android/Chrome). iOS ignores this silently.
+      function goFullscreen() {
+        if (!isPhone() || document.fullscreenElement) return;
+        var el = document.documentElement;
+        if (el.requestFullscreen) { el.requestFullscreen().catch(function () {}); }
+        else if (el.webkitRequestFullscreen) { el.webkitRequestFullscreen(); }
+      }
+      ['pointerup', 'touchend', 'click'].forEach(function (e) {
+        document.addEventListener(e, goFullscreen, true);
+      });
+
+      // 2. Show the mock status bar only when the browser bar is gone,
+      //    so the two never stack and push the titles off screen.
+      function syncChrome() {
+        var standalone = window.matchMedia('(display-mode: standalone)').matches
+          || window.matchMedia('(display-mode: fullscreen)').matches
+          || window.navigator.standalone === true
+          || !!document.fullscreenElement;
+        document.body.classList.toggle('is-fullscreen', standalone);
+      }
+      document.addEventListener('fullscreenchange', syncChrome);
+      document.addEventListener('webkitfullscreenchange', syncChrome);
+      window.addEventListener('resize', syncChrome);
+      syncChrome();
+
+      // 3. Keyboard: measure how much it covers and expose it as --kb,
+      //    so bottom sheets and pickers stay above it.
+      var vv = window.visualViewport;
+      if (vv) {
+        var applyKb = function () {
+          var kb = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
+          var open = isPhone() && kb > 120;
+          document.body.classList.toggle('kb-open', open);
+          document.body.style.setProperty('--kb', (open ? kb : 0) + 'px');
+        };
+        vv.addEventListener('resize', applyKb);
+        vv.addEventListener('scroll', applyKb);
+      }
+
+      // 4. Keep the focused field in view once the keyboard has settled.
+      document.addEventListener('focusin', function (e) {
+        if (!isPhone()) return;
+        var t = e.target;
+        if (!t.matches || !t.matches('input, textarea')) return;
+        setTimeout(function () {
+          t.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }, 300);
+      });
+    })();
   </script>
 </body>
 </html>

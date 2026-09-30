@@ -1476,8 +1476,17 @@ input[type=date].input__control, input[type=time].input__control { cursor: point
   input, select, textarea { font-size: 16px; }
 }
 
-/* Mobile: hide the mock iOS status bar (the real phone has its own).
-   Placed last so it overrides the base .statusbar rule. */
+/* ================= Mobile fixes ================= */
 @media (max-width: 600px) {
+  /* Mock status bar: hidden by default (the phone already shows its own),
+     shown again only in full screen, where the phone's bar is gone. */
   .statusbar { display: none; }
+  body.is-fullscreen .statusbar { display: flex; }
+  body.is-fullscreen .home-indicator { display: block; }
+
+  /* Keyboard open: shrink the visible area so bottom sheets and pickers
+     sit above the keyboard instead of behind it. */
+  body.kb-open .overlay { bottom: var(--kb, 0px); }
+  body.kb-open .sheet-panel { max-height: calc(100dvh - var(--kb, 0px) - 24px); overflow-y: auto; }
+  body.kb-open .screen__scroll { padding-bottom: var(--kb, 0px); }
 }
