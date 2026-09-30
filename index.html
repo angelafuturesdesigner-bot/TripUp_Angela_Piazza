@@ -58,5 +58,13 @@
       window.addEventListener('resize', fit); fit();
     })();
   </script>
+  <script>
+  document.addEventListener('click', () => {
+    const el = document.documentElement;
+    if (!document.fullscreenElement && el.requestFullscreen) {
+      el.requestFullscreen().catch(() => {});
+    }
+  }, { once: true });
+</script>
 </body>
 </html>
