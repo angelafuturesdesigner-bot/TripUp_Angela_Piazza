@@ -82,6 +82,7 @@
           || window.navigator.standalone === true
           || !!document.fullscreenElement;
         document.body.classList.toggle('is-fullscreen', standalone);
+        document.documentElement.classList.toggle('is-fullscreen', standalone);
       }
       document.addEventListener('fullscreenchange', syncChrome);
       document.addEventListener('webkitfullscreenchange', syncChrome);

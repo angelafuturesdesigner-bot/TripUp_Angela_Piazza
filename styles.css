@@ -1481,11 +1481,12 @@ input[type=date].input__control, input[type=time].input__control { cursor: point
   /* Mock status bar: hidden by default (the phone already shows its own),
      shown again only in full screen, where the phone's bar is gone. */
   .statusbar { display: none; }
-  body.is-fullscreen .statusbar { display: flex; }
-  body.is-fullscreen .home-indicator { display: block; }
+  body.is-fullscreen .statusbar, html.is-fullscreen .statusbar { display: flex; }
+  body.is-fullscreen .home-indicator, html.is-fullscreen .home-indicator { display: block; }
   /* Full screen: reserve the mock status bar's real height, so the sticky
      header sits right below it instead of underneath it. */
-  body.is-fullscreen { --sb: var(--status-bar-h); --hi: var(--home-indicator-h); }
+  html:has(body.is-fullscreen) { --sb: var(--status-bar-h); --hi: var(--home-indicator-h); }
+  html.is-fullscreen { --sb: var(--status-bar-h); --hi: var(--home-indicator-h); }
 
   /* Keyboard open: shrink the visible area so bottom sheets and pickers
      sit above the keyboard instead of behind it. */
