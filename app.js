@@ -721,7 +721,7 @@ SCREENS.pastTrip = {
     l.el.innerHTML = `<div class="screen__scroll"><div class="page" style="padding-bottom:150px">
       ${NavHeader(p.name)}
       <div class="stack-16" style="margin-top:16px">
-        <div class="intro-block"><h2 class="screen-title">${p.name} <span aria-hidden="true">${p.flag}</span></h2><p class="intro-block__text">${p.dates} · ${p.members} members</p></div>
+        <div class="past-head">${TripCover(p.id)}<div class="intro-block"><h2 class="screen-title">${p.name}</h2><p class="intro-block__text">${p.dates} · ${p.members} members</p></div></div>
         <div class="summary"><div><div class="summary__label">Total expenses</div><div class="summary__value">${eur(p.total)}</div></div><div><div class="summary__label">Balances</div><div class="summary__value">${Tag(Icon('check', 14) + 'Trip settled', 'success')}</div></div></div>
       </div>
       <div style="margin:8px -16px 0">${p.days.map((d) => `
@@ -1005,13 +1005,13 @@ SCREENS.members = {
         <span class="section-label">Participants</span>
         <div class="list" data-slot="list">${tripMembers().map((id) => `<div class="list-row">${Avatar(id, 'md')}<span class="list-row__main"><span class="list-row__title">${M(id).name}${MemberTags(id)}</span></span></div>`).join('')}</div>
         <button class="add-row" data-action="member-new" style="margin-top:8px">${Icon('person_add', 20)}New participant</button>
-        <button class="add-row" data-action="member-invite">${Icon('link', 20)}Invite via link</button>
       </div>
-      <div class="btn-row" style="margin-top:auto">
+      <div class="members__actions">
+      </div>
+      <div class="btn-row" style="margin-top:auto;padding-top:24px">
         ${Button('Save', { variant: 'outline', action: 'member-save', disabled: true })}
         ${Button('Save & share', { action: 'member-save', data: 'data-share="1"', disabled: true })}
-      </div>
-      ${Button('Leave group', { variant: 'tertiary', cls: 'btn--block members__leave', before: Icon('logout', 20), action: 'member-leave' })}</div></div>`;
+      </div></div></div>`;
   },
 };
 

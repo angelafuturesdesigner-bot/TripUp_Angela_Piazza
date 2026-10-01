@@ -1643,3 +1643,33 @@ input[type=date], input[type=time] { min-width: 0; appearance: none; -webkit-app
 .j-row__body > .settle-mark { margin-top: var(--space-2); }
 
 .settle-mark:not(.is-done) .icon { color: var(--text-danger); }
+
+/* Past trip header: cover instead of flag */
+.past-head { display: flex; align-items: center; gap: var(--space-16); }
+.past-head .intro-block { min-width: 0; }
+/* Members: tertiary actions with a light divider */
+.members__actions { display: flex; flex-direction: column; align-items: flex-start; margin-top: var(--space-16); }
+.members__action { padding: 0 var(--space-12); margin-left: calc(-1 * var(--space-12)); }
+.members__divider { align-self: stretch; height: 1px; margin: var(--space-4) 0; background: var(--border-default); }
+.members__leave { margin-top: 0; }
+/* My Trips: narrower left column so the cards have room */
+.j-row { grid-template-columns: 40px 30px minmax(0, 1fr); gap: var(--space-8); }
+.j-row:not(:last-child)::after { left: 62px; }
+/* Itinerary: future days keep the dashed line */
+.timeline--future::before { background: repeating-linear-gradient(180deg, var(--border-brand-secondary) 0 6px, transparent 6px 12px); }
+
+/* Tertiary: pressed = text and icon Primary/20, no fill */
+.btn--tertiary:not(:disabled):active, .btn--tertiary.is-busy, .icon-btn--ghost:not(:disabled):active { background: none; color: var(--primary-20); }
+.btn--tertiary:not(:disabled):active .icon, .btn--tertiary.is-busy .icon, .icon-btn--ghost:not(:disabled):active .icon { color: var(--primary-20); }
+@media (hover: hover) { .btn--tertiary:not(:disabled):not([aria-disabled="true"]):hover { background: none; } }
+/* Members: compact 32px actions, both brand */
+.members__action { height: 32px; padding: 0; margin-left: 0; gap: var(--space-4); font: var(--type-footnote-strong); }
+.members__action .icon { font-size: 16px; }
+.members__actions { gap: var(--space-8); }
+.members__divider { margin: 0; }
+.members__leave, .members__leave .icon { color: var(--text-brand); }
+
+/* Members: same as "New participant", without the fill */
+.members__actions { gap: 0; align-items: stretch; margin-top: var(--space-8); }
+.add-row--plain { background: none; }
+.add-row--plain:active, .add-row--plain:active .icon { color: var(--primary-20); }
