@@ -36,9 +36,9 @@ const DATA = {
       { time: '20:30', title: 'Dinner in Príncipe Real' } ] },
     { id: 'sat-26', label: 'Sat 26 Sep', events: [
       { time: '09:00', title: 'Breakfast at Manteigaria' },
-      { time: '10:00', title: 'Tram 28 to Castelo de São Jorge' },
+      { time: '10:00', title: 'Castelo de São Jorge' },
       { time: '12:30', title: 'Lunch at Time Out Market' },
-      { time: '14:00', title: 'Walk to Miradouro de Santa Catarina' },
+      { time: '14:00', title: 'MAAT – Museum' },
       { time: '15:30', title: 'Ice cream in Chiado' },
       { time: '17:00', title: 'Pickup back to Airbnb' } ] },
     { id: 'sun-27', label: 'Sun 27 Sep', events: [
@@ -290,8 +290,8 @@ const TextInput = ({ value = '', placeholder = '', name = '', after = '', attrs 
 const DateInput = (name, iso, attrs = '') => `<label class="input input--picker"><span class="input__value">${fDay(iso)}</span><input class="input__native" type="date" data-input="${name}" value="${iso}" ${attrs}>${Icon('calendar_today', 14)}</label>`;
 const TimeInput = (name, t, attrs = '') => `<label class="input input--picker"><span class="input__value">${t}</span><input class="input__native" type="time" data-input="${name}" value="${t}" ${attrs}>${Icon('schedule', 14)}</label>`;
 const Toast = (text, icon = 'check_circle') => `<div class="toast"><span class="toast__icon">${Icon(icon === 'check_circle' ? 'check' : icon, 16)}</span><span>${esc(text)}</span></div>`;
-const NavHeader = (title, back = 'back') =>
-  `<header class="nav-header"><button class="icon-btn icon-btn--ghost nav-header__back" data-action="${back}" aria-label="Back">${Icon('arrow_back_ios_new', 20)}</button><h1 class="nav-header__title">${title}</h1></header>`;
+const NavHeader = (title, back = 'back', right = '') =>
+  `<header class="nav-header"><button class="icon-btn icon-btn--ghost nav-header__back" data-action="${back}" aria-label="Back">${Icon('arrow_back_ios_new', 20)}</button><h1 class="nav-header__title">${title}</h1>${right ? `<span class="nav-header__right">${right}</span>` : ''}</header>`;
 const eventStatus = (dayId, time) => {
   const di = dayIndex(dayId), ti = dayIndex(S.today);
   if (di < ti) return 'done';
@@ -363,6 +363,7 @@ const DaySection = (day) => {
     <div class="accordion__body">${Timeline(day.events, day.id, cls)}${withPoll ? Poll(S.poll) : ''}</div>
   </section>`;
 };
+const ItinShare = () => `<div class="itin-share"><p class="itin-share__text">Send the whole plan to the group or to anyone else.</p>${Button('Share itinerary', { variant: 'secondary', cls: 'btn--44', before: Icon('ios_share', 20), action: 'itin-share' })}</div>`;
 const NAV_ITEMS = [['trips', 'card_travel', 'My Trips'], ['card', 'credit_card', 'Card'], ['alerts', 'notifications_none', 'Alerts'], ['account', 'perm_identity', 'Account']];
 const BottomNav = (active) => {
   const unread = S.alerts.filter((a) => a.unread).length;
@@ -630,7 +631,7 @@ SCREENS.trips = {
       : `<b>${mon(a)} ’${a.slice(2, 4)}</b><b>${mon(b)} ’${b.slice(2, 4)}</b>`;
     $('[data-slot=trips-body]', l.el).innerHTML = `<div class="journey">
       ${row('j-row--new', '<b>Next</b>', '', '<span class="j-row__title">Plan a new trip</span>', 'soon', '', 0)}
-      ${showNow ? row('j-row--now', '<small>Now</small>', TripCover(t.id), `<span class="j-row__title">${esc(t.name)}<span class="tag tag--accent"><span class="live-dot"></span>${status}</span></span><span class="j-row__sub">${range(t.startISO, t.endISO)}</span>${SettleMark(allSquare())}`, 'open-trip', '', 1) : ''}
+      ${showNow ? row('j-row--now', '<small>Now</small>', TripCover(t.id), `<span class="j-row__title">${esc(t.name)}</span><span class="j-row__sub">${range(t.startISO, t.endISO)}</span><span class="tag tag--accent"><span class="live-dot"></span>${status}</span>`, 'open-trip', '', 1) : ''}
       ${past.map((p, i) => row('', when(p.startISO, p.endISO), TripCover(p.id), `<span class="j-row__title">${esc(p.name)}</span><span class="j-row__sub">${range(p.startISO, p.endISO)}</span>${SettleMark(p.settled !== false)}`, 'open-past', `data-id="${p.id}"`, i + 2)).join('')}
     </div>`;
   },
@@ -715,19 +716,113 @@ const COVERS = {
 const TripCover = (id) => `<span class="trip-cover" aria-hidden="true"><svg viewBox="0 0 64 64">${COVERS[id] || ''}</svg></span>`;
 
 /* ---------- Past trip (read-only) ---------- */
+// Trip memories: [name, wiki, icon, x%, y%, photos]
+const MEMORIES = {
+  london: [['Big Ben', [['en', 'Big_Ben']], 'schedule', 30, 40, 12], ['Tower Bridge', [['en', 'Tower_Bridge']], 'location_city', 74, 58, 7], ['British Museum', [['en', 'British_Museum']], 'museum', 46, 24, 4], ['Camden Market', [['en', 'Camden_Market']], 'storefront', 22, 74, 1]],
+  paris: [['Eiffel Tower', [['en', 'Eiffel_Tower']], 'location_city', 22, 58, 14], ['Louvre', [['en', 'Louvre']], 'museum', 56, 44, 6], ["Musée d’Orsay", [['en', "Musée_d'Orsay"]], 'museum', 44, 70, 3], ['Montmartre', [['en', 'Montmartre']], 'landscape', 62, 18, 5]],
+  edinburgh: [['Edinburgh Castle', [['en', 'Edinburgh_Castle']], 'castle', 28, 46, 9], ['Royal Mile', [['en', 'Royal_Mile']], 'directions_walk', 52, 52, 4], ['Calton Hill', [['en', 'Calton_Hill']], 'landscape', 66, 24, 2], ["Arthur’s Seat", [['en', "Arthur's_Seat"]], 'hiking', 78, 70, 6]],
+  thailand: [['Grand Palace', [['en', 'Grand_Palace']], 'temple_buddhist', 30, 64, 11], ['Yaowarat', [['en', 'Yaowarat_Road']], 'restaurant', 48, 76, 5], ['Chiang Mai', [['en', 'Chiang_Mai']], 'temple_buddhist', 40, 20, 8], ['Railay Beach', [['en', 'Railay_Beach']], 'beach_access', 76, 46, 1], ['Night bazaar', [['en', 'Chiang_Mai_Night_Bazaar']], 'storefront', 64, 28, 3]],
+};
+const SPLIT_OFF = [[-5, -6], [6, -2], [-2, 7]];
+const MemPin = (key, name, icon, x, y, n, cls = '') => `<button class="mem-pin ${cls}" style="left:${x}%;top:${y}%" data-action="mem-photo" aria-label="${esc(name)} · ${n} photo${n === 1 ? '' : 's'}"><span class="mem-pin__img${PHOTO[key] ? ' has-photo' : ''}" data-mem="${key}"${PHOTO[key] ? ` style="background-image:url('${PHOTO[key]}')"` : ''}><span class="mem-pin__fallback">${Icon(icon, 20)}</span></span>${n > 1 ? `<span class="mem-pin__count">${n}</span>` : ''}</button>`;
+function Memories(id) {
+  const list = MEMORIES[id]; if (!list) return '';
+  const total = list.reduce((s, m) => s + m[5], 0);
+  const pins = list.map(([name, , icon, x, y, n], i) => {
+    const key = `mem:${id}:${i}`;
+    if (n < 2) return MemPin(key, name, icon, x, y, n);
+    const k = Math.min(3, n), base = Math.floor(n / k);
+    return MemPin(key, name, icon, x, y, n, 'mem-pin--group') + SPLIT_OFF.slice(0, k).map(([dx, dy], j) => MemPin(key, name, icon, x + dx, y + dy, base + (j === 0 ? n - base * k : 0), 'mem-pin--split')).join('');
+  }).join('');
+  return `<section class="memories">
+    <div class="memories__head"><h3 class="memories__title">Trip memories</h3>${Button('See all', { variant: 'tertiary', cls: 'memories__all', action: 'mem-photo' })}</div>
+    <div class="mem-map" data-swipe>
+      <div class="map mem-map__layer">
+        <span class="map__shape map__river" style="top:58%;height:120px"></span>
+        <span class="map__shape map__park" style="left:6%;top:8%;width:90px;height:60px"></span>
+        <span class="map__shape map__park" style="left:64%;top:62%;width:80px;height:56px"></span>
+        <span class="map__shape map__road" style="left:0;top:34%;width:100%;transform:rotate(-6deg)"></span>
+        <span class="map__shape map__road" style="left:38%;top:0;width:6px;height:100%"></span>
+        <span class="map__shape map__road" style="left:72%;top:0;width:6px;height:60%"></span>
+        ${[[12, 50, 40, 26], [50, 12, 44, 30], [82, 14, 36, 40], [52, 50, 30, 22], [16, 82, 50, 20]].map(([x, y, w, h]) => `<span class="map__shape map__block" style="left:${x}%;top:${y}%;width:${w}px;height:${h}px"></span>`).join('')}
+        ${pins}
+      </div>
+      <div class="mem-zoom"><button class="mem-zoom__btn" data-action="mem-zoom" data-dir="1" aria-label="Zoom in">${Icon('add', 20)}</button><button class="mem-zoom__btn" data-action="mem-zoom" data-dir="-1" aria-label="Zoom out">${Icon('remove', 20)}</button></div>
+    </div>
+    <p class="memories__note">${total} photos from ${list.length} places</p>
+  </section>`;
+}
+function hydrateMem(root) {
+  $$('[data-mem]', root).forEach((el) => {
+    const key = el.dataset.mem; if (PHOTO[key]) return;
+    const [, id, i] = key.split(':'), m = MEMORIES[id] && MEMORIES[id][+i]; if (!m) return;
+    wikiFor({ name: key, wiki: m[1] }).then((w) => {
+      if (!w) return;
+      const img = new Image();
+      img.onload = () => { PHOTO[key] = w.src; $$('[data-mem]').filter((n) => n.dataset.mem === key).forEach((n) => { n.style.backgroundImage = `url('${w.src}')`; n.classList.add('has-photo'); }); };
+      img.src = w.src;
+    });
+  });
+}
+function bindMemMap(l) {
+  const card = $('.mem-map', l.el); if (!card) return;
+  const layer = $('.mem-map__layer', card), st = l.ui.mem = l.ui.mem || { s: 1, tx: 0, ty: 0 };
+  const pts = new Map(); let g = null, moved = 0;
+  const clamp = () => { const W = card.clientWidth, H = card.clientHeight; st.s = Math.min(3, Math.max(1, st.s)); st.tx = Math.min(0, Math.max(W - W * st.s, st.tx)); st.ty = Math.min(0, Math.max(H - H * st.s, st.ty)); };
+  const apply = () => {
+    clamp(); layer.style.transform = `translate(${st.tx}px, ${st.ty}px) scale(${st.s})`; layer.style.setProperty('--z', st.s);
+    card.classList.toggle('is-zoomed', st.s >= 1.6);
+    $('[data-dir="1"]', card).disabled = st.s >= 3; $('[data-dir="-1"]', card).disabled = st.s <= 1;
+  };
+  const zoomAt = (ns, cx, cy) => { const px = (cx - st.tx) / st.s, py = (cy - st.ty) / st.s; st.s = Math.min(3, Math.max(1, ns)); st.tx = cx - px * st.s; st.ty = cy - py * st.s; apply(); };
+  l.ui.memZoom = (dir) => { card.classList.remove('is-gesture'); zoomAt(st.s + dir * 0.75, card.clientWidth / 2, card.clientHeight / 2); };
+  const snap = () => {
+    const r = card.getBoundingClientRect(), p = [...pts.values()];
+    const c = { x: p.reduce((s, q) => s + q.x, 0) / p.length - r.left, y: p.reduce((s, q) => s + q.y, 0) / p.length - r.top };
+    const d = p.length > 1 ? Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y) : 0;
+    return { c, d };
+  };
+  const begin = () => { g = pts.size ? { ...snap(), s: st.s, tx: st.tx, ty: st.ty } : null; };
+  card.addEventListener('pointerdown', (e) => {
+    if (e.target.closest('.mem-zoom')) return;
+    pts.set(e.pointerId, { x: e.clientX, y: e.clientY }); if (pts.size === 1) moved = 0;
+    card.classList.add('is-gesture'); begin();
+  });
+  const move = (e) => {
+    if (!card.isConnected) return off();
+    if (!pts.has(e.pointerId) || !g) return;
+    const prev = pts.get(e.pointerId); moved += Math.abs(e.clientX - prev.x) + Math.abs(e.clientY - prev.y);
+    pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    const { c, d } = snap();
+    if (pts.size > 1 && g.d) {
+      const ns = Math.min(3, Math.max(1, g.s * d / g.d)), px = (g.c.x - g.tx) / g.s, py = (g.c.y - g.ty) / g.s;
+      st.s = ns; st.tx = c.x - px * ns; st.ty = c.y - py * ns;
+    } else { st.tx = g.tx + c.x - g.c.x; st.ty = g.ty + c.y - g.c.y; }
+    apply();
+    if (moved > 6) calSwiped = Date.now();
+  };
+  const up = (e) => { if (!pts.has(e.pointerId)) return; pts.delete(e.pointerId); if (moved > 6) calSwiped = Date.now(); begin(); if (!pts.size) card.classList.remove('is-gesture'); };
+  const wheel = (e) => { if (!e.ctrlKey) return; e.preventDefault(); const r = card.getBoundingClientRect(); card.classList.add('is-gesture'); zoomAt(st.s * Math.exp(-e.deltaY / 100), e.clientX - r.left, e.clientY - r.top); };
+  const off = () => { window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); window.removeEventListener('pointercancel', up); };
+  window.addEventListener('pointermove', move); window.addEventListener('pointerup', up); window.addEventListener('pointercancel', up);
+  card.addEventListener('wheel', wheel, { passive: false });
+  apply();
+}
 SCREENS.pastTrip = {
   render(l) {
     const p = S.pastTrips.find((x) => x.id === l.params.id);
     l.el.innerHTML = `<div class="screen__scroll"><div class="page" style="padding-bottom:150px">
-      ${NavHeader(p.name)}
+      ${NavHeader(p.name, 'back', IconButton('share', { label: 'Share itinerary', action: 'itin-share', cls: 'icon-btn--ghost' }))}
       <div class="stack-16" style="margin-top:16px">
         <div class="past-head">${TripCover(p.id)}<div class="intro-block"><h2 class="screen-title">${p.name}</h2><p class="intro-block__text">${p.dates} · ${p.members} members</p></div></div>
         <div class="summary"><div><div class="summary__label">Total expenses</div><div class="summary__value">${eur(p.total)}</div></div><div><div class="summary__label">Balances</div><div class="summary__value">${Tag(Icon('check', 14) + 'Trip settled', 'success')}</div></div></div>
+        ${Memories(p.id)}
       </div>
       <div style="margin:8px -16px 0">${p.days.map((d) => `
         <section class="accordion"><div class="accordion__header" style="position:static"><span class="accordion__title">${d.label}</span></div>
         <div class="timeline">${d.events.map(([t, x]) => `<div class="tl-row"><span class="tl-row__time">${t}</span><span class="tl-dot tl-dot--done">${Icon('check', 16)}</span><span class="tl-row__label">${esc(x)}</span></div>`).join('')}</div></section>`).join('')}
       </div></div></div>`;
+    hydrateMem(l.el); bindMemMap(l);
   },
 };
 
@@ -764,7 +859,7 @@ SCREENS.trip = {
     const key = JSON.stringify([S.days.map((d) => d.events.length), S.poll && (S.poll.status === 'closed' ? 'closed' : 'live'), S.poll && S.poll.options.length, S.dayOpen, S.itinRev]);
     if (u.itinKey !== key) {
       u.itinKey = key;
-      ip.innerHTML = S.days.map(DaySection).join('');
+      ip.innerHTML = S.days.map(DaySection).join('') + ItinShare();
       if (S.poll && S.poll.fresh) { $('.poll', ip)?.classList.add('is-entering'); S.poll.fresh = false; }
       S.days.forEach((d) => d.events.forEach((e) => delete e.landing));
     } else patchPoll(ip);
@@ -834,13 +929,37 @@ function focusTx(id) {
 }
 const scrollToPlan = () => focusPlan('[data-decided]');
 const findEvent = (dayId, id) => { const day = S.days.find((d) => d.id === dayId); return [day, day && day.events.find((e) => e.id === id)]; };
-const placeOf = (t) => t.replace(/^(Dinner|Lunch|Breakfast|Ice cream) (at|in) |^(Walk to|Tram 28 to|Check-in at( the)?|Pickup back to|Pick up towards) /i, '');
+const placeOf = (t) => t.replace(/^(Dinner|Lunch|Breakfast|Ice cream) (at|in) |^(Walk to|Tram 28 to|Check-in at( the)?|Pickup back to|Pick up towards) /i, '').replace(/ – .*$/, '');
+const PlanPhotos = (ev, data) => {
+  const ph = ev.photos || [];
+  return `<div class="plan-photos" data-slot="plan-photos">
+    <h3 class="plan-photos__title">Photos</h3>
+    <div class="plan-photos__row">
+      <label class="photo-add"><input type="file" accept="image/*" multiple hidden data-photo-input ${data}>${Icon('add_a_photo', 20)}<span>Add</span></label>
+      ${ph.map((u, i) => `<span class="photo-thumb"><button class="photo-thumb__img" style="background-image:url('${u}')" data-action="photo-view" aria-label="Photo ${i + 1}"></button><button class="photo-thumb__remove" data-action="photo-remove" ${data} data-index="${i}" aria-label="Remove photo">${Icon('close', 14)}</button></span>`).join('')}
+    </div>
+    ${ph.length ? '' : '<p class="plan-photos__empty">Add photos to remember this moment. They’ll appear on the trip map.</p>'}
+  </div>`;
+};
+function renderPlanPhotos(dayId, id) {
+  const [, ev] = findEvent(dayId, id), slot = $('#overlay-host [data-slot=plan-photos]'); if (!ev || !slot) return;
+  slot.outerHTML = PlanPhotos(ev, `data-day="${dayId}" data-id="${id}"`);
+}
+document.addEventListener('change', (e) => {
+  const t = e.target; if (!t.matches?.('[data-photo-input]')) return;
+  const files = [...(t.files || [])].filter((f) => f.type.startsWith('image/')), { day, id } = t.dataset, [, ev] = findEvent(day, id);
+  if (!ev || !files.length) return;
+  ev.photos = [...files.map((f) => URL.createObjectURL(f)).reverse(), ...(ev.photos || [])];
+  renderPlanPhotos(day, id);
+  toast(`${files.length} photo${files.length === 1 ? '' : 's'} added to ${ev.title}`, 'add_a_photo');
+});
 function openEvent(dayId, id) {
   const [day, ev] = findEvent(dayId, id); if (!ev) return;
   const st = eventStatus(dayId, ev.time), data = `data-day="${dayId}" data-id="${id}"`;
   openSheet(SheetHead(esc(ev.title)) + `<div class="stack-16">
     <div class="event-meta"><span>${Icon('calendar_today', 16)}${day.label}</span><span>${Icon('schedule', 16)}${ev.time}</span>${st === 'done' ? Tag('Done', 'success') : ev.decided ? Tag('Decided by poll', 'accent') : Tag('Coming up', 'brand')}</div>
     <a class="btn btn--primary btn--block" style="margin-top:8px" href="${mapsUrl(placeOf(ev.title))}" target="_blank" rel="noopener">Open in Google Maps${Icon('open_in_new', 20)}</a>
+    ${PlanPhotos(ev, data)}
     <div class="btn-row" style="margin-top:-8px">${Button('Edit plan', { variant: 'tertiary', before: Icon('edit', 20), action: 'event-edit', data })}${Button('Remove', { variant: 'tertiary', before: Icon('delete', 20), action: 'event-remove', data })}</div>
   </div>`);
 }
@@ -897,7 +1016,6 @@ function ExpensesPanel(l) {
         ${Celebrate()}
         <h3 class="all-square__title">Tudo pago, everyone!</h3>
         <p class="all-square__text">There is nothing left to pay.</p>
-        ${Button('Share summary', { variant: 'outline', after: Icon('ios_share', 20), action: 'share-summary', cls: '', data: 'style="margin-top:12px"' })}
       </div>`;
   } else {
     const b = balances(), tr = transfers(b);
@@ -1188,7 +1306,8 @@ function aiParse(text, paidBy = S.me) {
   const f = split(food, fp), w = split(wine, wp);
   const d = { ...base, split: 'unequal', shares: ids.map((member) => {
     const inc = fp.includes(member) || wp.includes(member);
-    return { member, amount: (f[member] || 0) + (w[member] || 0), included: inc, locked: inc && !(fp.includes(member) && wp.includes(member)) };
+    const adj = inc && !(fp.includes(member) && wp.includes(member));
+    return { member, amount: (f[member] || 0) + (w[member] || 0), included: inc, locked: adj, byAI: adj };
   }) };
   resplit(d);
   return { draft: d };
@@ -1196,8 +1315,8 @@ function aiParse(text, paidBy = S.me) {
 // Manual (locked) rows keep their value; Automatic rows share what's left of the total.
 function resplit(d) {
   const inc = d.shares.filter((s) => s.included);
-  d.shares.forEach((s) => { if (!s.included) { s.amount = 0; s.locked = false; } });
-  if (d.split === 'equal') { inc.forEach((s) => (s.locked = false)); const m = split(d.amount, inc.map((s) => s.member)); inc.forEach((s) => (s.amount = m[s.member])); return; }
+  d.shares.forEach((s) => { if (!s.included) { s.amount = 0; s.locked = false; s.byAI = false; } });
+  if (d.split === 'equal') { inc.forEach((s) => { s.locked = false; s.byAI = false; }); const m = split(d.amount, inc.map((s) => s.member)); inc.forEach((s) => (s.amount = m[s.member])); return; }
   const free = inc.filter((s) => !s.locked);
   const lockedSum = inc.filter((s) => s.locked).reduce((a, s) => a + s.amount, 0);
   const m = split(Math.max(0, d.amount - lockedSum), free.map((s) => s.member)); free.forEach((s) => (s.amount = m[s.member]));
@@ -1234,7 +1353,7 @@ function trySaveExpense(l) {
 }
 const AmountPill = (name, value, currency, aria) => `<label class="amount-pill"><input class="amount-pill__input" data-input="${name}" inputmode="decimal" value="${value}" aria-label="${aria}"><button class="currency" data-action="currency">${esc(currency)}${Icon('keyboard_arrow_down', 20)}</button></label>`;
 const SplitRow = (s, i, d) => {
-  const editable = d.split === 'unequal' && s.included, manual = editable && s.locked;
+  const editable = d.split === 'unequal' && s.included, manual = editable && s.locked && !s.byAI;
   return `
   <div class="split-row${s.included ? '' : ' is-off'}" data-index="${i}">
     <button style="display:flex;align-items:center;gap:12px;align-self:stretch" data-action="toggle-share" data-index="${i}">${Checkbox(s.included)}<span class="split-row__name">${M(s.member).name}${s.member === S.me ? Tag('Me', 'accent') : ''}</span></button>
@@ -1287,7 +1406,7 @@ function syncExpense(l) {
       inp.style.width = Math.ceil(textW(inp.value || '0') + 2) + 'px';
     }
     if (val) val.textContent = money(s.included ? s.amount : 0);
-    $('.amount-cell', row).classList.toggle('is-manual', d.split === 'unequal' && s.included && s.locked);
+    $('.amount-cell', row).classList.toggle('is-manual', d.split === 'unequal' && s.included && s.locked && !s.byAI);
   });
   updateSubmit(l);
 }
@@ -1355,7 +1474,7 @@ const MethodInner = (m) => `${MethodMark(m)}<span class="input__value">${esc(m)}
 /* ---------- Map view ---------- */
 const MAP_PINS = [[20, 18], [40, 26], [62, 20], [76, 34], [58, 44], [32, 46], [46, 57]];
 const PLAN_WIKI = [
-  [/Castelo|Tram 28/i, [['en', 'São_Jorge_Castle']]], [/Chiado/i, [['en', 'Chiado']]], [/Airbnb|Alfama/i, [['en', 'Alfama']]],
+  [/Castelo/i, [['en', 'São_Jorge_Castle']]], [/MAAT/i, [['en', 'Museum_of_Art,_Architecture_and_Technology']]], [/Chiado/i, [['en', 'Chiado']]], [/Airbnb|Alfama/i, [['en', 'Alfama']]],
   [/Time Out/i, [['en', 'Time_Out_Market'], ['en', 'Mercado_da_Ribeira']]], [/Santa Catarina/i, [['pt', 'Miradouro_de_Santa_Catarina'], ['en', 'Santa_Catarina_(Lisbon)']]],
   [/Manteigaria|Breakfast/i, [['en', 'Pastel_de_nata']]], [/Ultimo|Alcântara/i, [['en', 'Alcântara_(Lisbon)']]], [/Adega|Artigiano|Artis/i, [['en', 'Bairro_Alto']]],
 ];
@@ -1560,7 +1679,7 @@ function showPlace(name) {
 function openAI(l) {
   const r = S.receipt;
   const total = [...r.food, ...r.wine].reduce((s, [, v]) => s + v, 0);
-  const el = openSheet(SheetHead('Scan receipt with AI') + `
+  const el = openSheet(SheetHead('Let AI do the math!') + `
     <div class="scan" data-slot="scan">
       <div class="scan__paper">${'<span class="scan__line"></span>'.repeat(7)}<span class="scan__beam"></span></div>
       <span class="scan__label">Scanning receipt…</span>
@@ -1636,12 +1755,9 @@ function pay(l) {
     S.payments.push({ from: S.me, to: l.params.to, amount: amt });
     S.settleAnim = { prev };
     addAlert(S.me, `You paid ${M(l.params.to).name} ${cur(amt, c)}`, 'balances');
-    openSheet(`<div class="paid">${DrawCheck('draw-check--success')}<h2 class="modal__title">Paid</h2><p class="modal__text">${cur(amt, c)} to ${M(l.params.to).name}</p></div>`, { modal: true });
-    later(() => openSheet(`<button class="close-btn" data-action="sheet-close" aria-label="Close">${Icon('close', 20)}</button>
-      <h2 class="modal__title">Payment sent!</h2>
-      <span class="success-mark">${Icon('check', 25)}</span>
-      <p class="modal__text">${left > 0 ? `You still owe ${M(l.params.to).name} ${cur(left, c)}.` : `You’re square with ${M(l.params.to).name}.`}</p>
-      ${Button('Done', { cls: 'btn--block', action: 'sheet-close' })}`, { modal: true, onClose: afterPayment }), RM ? 300 : 1000);
+    const who = M(l.params.to).name;
+    openSheet(`<div class="paid"><span class="pay-check">${DrawCheck('draw-check--success draw-check--brand')}<span class="pay-check__ring"></span></span><h2 class="modal__title paid__title">Payment sent!</h2><p class="modal__text">${cur(amt, c)} to ${who}<br>${left > 0 ? `You still owe ${who} ${cur(left, c)}.` : `You’re square with ${who}.`}</p></div>
+      ${Button('Done', { cls: 'btn--block', action: 'sheet-close' })}`, { modal: true, onClose: afterPayment });
   }, 900);
 }
 function afterPayment() {
@@ -1792,6 +1908,7 @@ const actions = {
     const ic = (i) => `<span class="icon-circle icon-circle--soft">${Icon(i, 20)}</span>`;
     openSheet(SheetHead(esc(S.trip.name)) + `<div class="list">
       ${ListRow({ lead: ic('ios_share'), title: 'Share trip', sub: 'Invite people with a link', action: 'trip-share' })}
+      ${ListRow({ lead: ic('map'), title: 'Share itinerary', sub: 'Send the plan as a link', action: 'itin-share' })}
       ${ListRow({ lead: ic('edit'), title: 'Edit trip details', sub: 'Name and dates', action: 'trip-edit' })}
       ${ListRow({ lead: ic('group'), title: 'Trip members', sub: `${S.trip.memberIds.length} members`, action: 'trip-members' })}
       <button class="list-row" data-action="trip-mute">${ic('notifications_off')}<span class="list-row__main"><span class="list-row__title">Mute notifications</span><span class="list-row__sub">Only for this trip</span></span>${Toggle(!!S.trip.muted)}</button>
@@ -1806,6 +1923,7 @@ const actions = {
     openSheet(Confirm(`Leave ${esc(S.trip.name)}?`, 'You won’t see the plans, polls or expenses any more.', 'Leave', 'soon'), { modal: true });
   },
   'leave-settle': (el) => { closeSheet(true); push('settle', { to: el.dataset.to, amount: +el.dataset.amount }); },
+  'itin-share': () => { closeSheet(); navigator.clipboard?.writeText(location.href).catch(() => {}); toast('Itinerary link copied · share it with anyone', 'link'); },
   'trip-share': () => { closeSheet(); navigator.clipboard?.writeText(location.href).catch(() => {}); toast('Invite link copied · share it with anyone'); },
   'trip-members': () => { closeSheet(true); if (topLayer().type !== 'members') push('members'); },
   'trip-mute': (el) => { S.trip.muted = !S.trip.muted; const t = $('.toggle', el); t.classList.toggle('is-on', S.trip.muted); t.setAttribute('aria-checked', S.trip.muted); toast(S.trip.muted ? 'Notifications muted for ' + S.trip.name : 'Notifications on for ' + S.trip.name, S.trip.muted ? 'notifications_off' : 'notifications'); },
@@ -1868,7 +1986,7 @@ const actions = {
   },
   'transfer-to': (el) => { const l = layerOf(el), d = l.ui.draft; openPicker('To', tripMembers().filter((id) => id !== d.paidBy).map((id) => ({ value: id, label: M(id).name })), d.to, (v) => { setTransferTo(d, v); l.ui.built = false; SCREENS.expense.render(l); }); },
   'paid-by': (el) => { const l = layerOf(el), d = l.ui.draft; openPicker('Paid by', tripMembers().map((id) => ({ value: id, label: M(id).name + (id === S.me ? ' (me)' : '') })), d.paidBy, (v) => { d.paidBy = v; if (d.type === 'transfer') { setTransferTo(d, d.to === v ? tripMembers().find((id) => id !== v) : d.to); l.ui.built = false; SCREENS.expense.render(l); return; } $('[data-action=paid-by] .input__value', l.el).textContent = M(v).name; updateSubmit(l); }); },
-  'split-mode': (el) => { const l = layerOf(el), d = l.ui.draft; openPicker('Split', [{ value: 'equal', label: 'Equally', sub: 'Everyone pays the same' }, { value: 'unequal', label: 'Unequally', sub: 'Edit any amount, the rest re-balances' }], d.split, (v) => { d.split = v; d.shares.forEach((s) => (s.locked = false)); resplit(d); $('[data-action=split-mode] .input__value', l.el).textContent = v === 'equal' ? 'Equally' : 'Unequally'; rerenderSplit(l); }); },
+  'split-mode': (el) => { const l = layerOf(el), d = l.ui.draft; openPicker('Split', [{ value: 'equal', label: 'Equally', sub: 'Everyone pays the same' }, { value: 'unequal', label: 'Unequally', sub: 'Edit any amount, the rest re-balances' }], d.split, (v) => { d.split = v; d.shares.forEach((s) => { s.locked = false; s.byAI = false; }); resplit(d); $('[data-action=split-mode] .input__value', l.el).textContent = v === 'equal' ? 'Equally' : 'Unequally'; rerenderSplit(l); }); },
   'expense-when': (el) => { const l = layerOf(el), d = l.ui.draft; openPicker('When', S.days.map((x) => ({ value: x.id, label: x.label })), d.when, (v) => { d.when = v; $('[data-action=expense-when] .input__value', l.el).textContent = dayLabel(v); updateSubmit(l); }); },
   currency: (el) => {
     const l = layerOf(el), d = l.ui.draft, now = d ? d.currency : l.ui.currency;
@@ -1878,7 +1996,7 @@ const actions = {
       else { l.ui.currency = v; updateSettleHint(l); }
     });
   },
-  'toggle-share': (el) => { const l = layerOf(el), d = l.ui.draft, s = d.shares[+el.dataset.index]; s.included = !s.included; s.locked = false; resplit(d); rerenderSplit(l); },
+  'toggle-share': (el) => { const l = layerOf(el), d = l.ui.draft, s = d.shares[+el.dataset.index]; s.included = !s.included; s.locked = false; s.byAI = false; resplit(d); rerenderSplit(l); },
   'ai-open': (el) => openAI(layerOf(el)),
   'ai-chip': () => { const t = $('[data-input=ai-text]'); t.value = 'Remove the wine for Ren and Nic'; $('[data-action=ai-apply]').disabled = false; },
   'ai-apply': () => {
@@ -1897,6 +2015,10 @@ const actions = {
   'explore-photos': (el) => openGallery(el.dataset.name),
   pay: (el) => pay(layerOf(el)),
   'share-summary': () => toast('Trip summary copied to share'),
+  'mem-photo': () => toast('Photo viewer coming soon', 'photo_library'),
+  'mem-zoom': (el) => { const l = layerOf(el); l.ui.memZoom && l.ui.memZoom(+el.dataset.dir); },
+  'photo-view': () => toast('Photo viewer coming soon', 'photo_library'),
+  'photo-remove': (el) => { const [, ev] = findEvent(el.dataset.day, el.dataset.id); if (!ev || !ev.photos) return; const [u] = ev.photos.splice(+el.dataset.index, 1); if (u) URL.revokeObjectURL(u); renderPlanPhotos(el.dataset.day, el.dataset.id); },
   // Card
   'top-up': () => openPicker('Top up', [2000, 5000, 10000].map((v) => ({ value: String(v), label: '+' + eur(v) })), '', (v) => { S.card.balance += +v; toast('Card topped up · +' + eur(+v)); refresh(); }),
   'card-details': () => openSheet(SheetHead('Card details') + `<div class="list">${[['Card number', '•••• •••• •••• ' + S.card.last4], ['Expiry', S.card.expiry], ['Cardholder', M(S.me).name], ['Wallet', 'Added to Apple Pay']].map(([t, v]) => ListRow({ title: t, value: v, chevron: false })).join('')}</div>`),
@@ -1964,7 +2086,7 @@ document.addEventListener('input', (e) => {
   }
   if (k === 'amount') { const d = l.ui.draft, v = cleanMoney(t.value); if (v !== t.value) t.value = v; d.amountText = v; d.amount = parseMoney(v); resplit(d); fitAmount(l); syncExpense(l); }
   if (k === 'what') { l.ui.draft.what = t.value; l.ui.draft.autoWhat = false; syncExpense(l); }
-  if (k === 'share') { const d = l.ui.draft, s = d.shares[+t.dataset.index], v = cleanMoney(t.value); if (v !== t.value) t.value = v; s.amount = parseMoney(v); s.locked = true; resplit(d); syncExpense(l); }
+  if (k === 'share') { const d = l.ui.draft, s = d.shares[+t.dataset.index], v = cleanMoney(t.value); if (v !== t.value) t.value = v; s.amount = parseMoney(v); s.locked = true; s.byAI = false; resplit(d); syncExpense(l); }
 });
 document.addEventListener('focusin', (e) => {
   const t = e.target, k = t.dataset?.input;
