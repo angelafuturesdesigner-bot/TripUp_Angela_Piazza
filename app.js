@@ -14,34 +14,34 @@ const DATA = {
   },
   trip: {
     id: 'lisbon', name: 'Lisbon', flag: '🇵🇹',
-    start: 'Sep 23', end: 'Sep 27', startISO: '2026-09-23', endISO: '2026-09-27', dates: 'Wed, Sep 23 – Sun, Sep 27, 2026',
+    start: '23 Sep', end: '27 Sep', startISO: '2026-09-23', endISO: '2026-09-27', dates: 'Wed 23 Sep – Sun 27 Sep 2026',
     hero: 'assets/lisbon-hero.svg',
     memberIds: ['ari', 'jamie', 'mark', 'nic'],
     admin: 'jamie',
     tabs: [['itinerary', 'Itinerary'], ['expenses', 'Expenses'], ['explore', 'Explore']],
   },
   days: [
-    { id: 'wed-23', label: 'Wed, Sep 23', events: [
+    { id: 'wed-23', label: 'Wed 23 Sep', events: [
       { time: '14:00', title: 'Check-in at the Airbnb (Alfama)' },
       { time: '17:00', title: 'Walk to Miradouro de Santa Luzia' },
       { time: '20:30', title: 'Dinner in Alfama' } ] },
-    { id: 'thu-24', label: 'Thu, Sep 24', events: [
+    { id: 'thu-24', label: 'Thu 24 Sep', events: [
       { time: '10:00', title: 'Torre de Belém – Mosteiro dos Jerónimos' },
       { time: '13:30', title: 'Lunch in Belém' },
       { time: '20:30', title: 'Dinner in Bairro Alto' } ] },
-    { id: 'fri-25', label: 'Fri, Sep 25', events: [
+    { id: 'fri-25', label: 'Fri 25 Sep', events: [
       { time: '10:30', title: 'Museu Nacional do Azulejo' },
       { time: '13:00', title: 'Lunch at Mercado de Campo de Ourique' },
       { time: '17:00', title: 'Tagus river cruise' },
       { time: '20:30', title: 'Dinner in Príncipe Real' } ] },
-    { id: 'sat-26', label: 'Sat, Sep 26', events: [
+    { id: 'sat-26', label: 'Sat 26 Sep', events: [
       { time: '09:00', title: 'Breakfast at Manteigaria' },
       { time: '10:00', title: 'Tram 28 to Castelo de São Jorge' },
       { time: '12:30', title: 'Lunch at Time Out Market' },
       { time: '14:00', title: 'Walk to Miradouro de Santa Catarina' },
       { time: '15:30', title: 'Ice cream in Chiado' },
       { time: '17:00', title: 'Pickup back to Airbnb' } ] },
-    { id: 'sun-27', label: 'Sun, Sep 27', events: [
+    { id: 'sun-27', label: 'Sun 27 Sep', events: [
       { time: '10:00', title: 'Breakfast at Fauna & Flora' },
       { time: '11:30', title: 'Pick up towards Airport' },
       { time: '17:00', title: 'London Airport pickup' } ] },
@@ -58,6 +58,7 @@ const DATA = {
     { id: 't3', day: 'thu-24', what: 'Lunch 24/09', paidBy: 'nic', amount: 3680, icon: 'lunch_dining' },
     { id: 't2', day: 'wed-23', what: 'Dinner 23/09', paidBy: 'ari', amount: 14800, icon: 'restaurant' },
     { id: 't1', day: 'wed-23', what: 'Airbnb balance', paidBy: 'mark', amount: 52000, icon: 'bed' },
+    { id: 't0', day: 'wed-23', what: 'Flights to Lisbon', paidBy: 'jamie', amount: 62560, icon: 'flight' },
   ],
   splitAmong: ['ari', 'jamie', 'mark', 'nic'],
   payments: [],
@@ -77,7 +78,7 @@ const DATA = {
     { member: 'mark', option: 2, at: 9000 },
   ],
   receipt: {
-    place: 'Ultimo Porto', date: 'Sat, Sep 26 · 21:04',
+    place: 'Ultimo Porto', date: 'Sat 26 Sep · 21:04',
     food: [['Couvert ×5', 1250], ['Grilled sea bream ×2', 5600], ['Octopus à lagareiro ×2', 5200], ['Bacalhau à Brás', 2150], ['Picanha', 2400], ['Desserts ×5', 3250], ['Water & coffee', 3850]],
     wine: [['Glass of Alvarinho reserva ×3', 7500]],
     wineExcluded: ['ren', 'nic'],
@@ -91,15 +92,18 @@ const DATA = {
     { name: 'Sintra day trip', type: 'Day trip', cat: 'Day trips', distance: '28 km', icon: 'castle', maps: 'Palácio da Pena Sintra', wiki: [['en', 'Pena_Palace'], ['en', 'Sintra']] },
   ],
   pastTrips: [
-    { id: 'london', name: 'London', flag: '🇬🇧', dates: 'Thu, Mar 12 – Sun, Mar 15, 2026', members: 4, total: 121200,
-      days: [{ label: 'Thu, Mar 12', events: [['15:00', 'Check-in in Shoreditch'], ['20:00', 'Dinner at Dishoom']] },
-             { label: 'Fri, Mar 13', events: [['10:00', 'Tate Modern'], ['19:30', 'West End show']] }] },
-    { id: 'paris', name: 'Paris', flag: '🇫🇷', dates: 'Fri, Dec 5 – Mon, Dec 8, 2025', members: 3, total: 86450,
-      days: [{ label: 'Fri, Dec 5', events: [['16:00', 'Check-in in Le Marais'], ['20:30', 'Dinner at Chez Janou']] },
-             { label: 'Sat, Dec 6', events: [['10:00', 'Musée d’Orsay'], ['18:00', 'Christmas market at Tuileries']] }] },
-    { id: 'thailand', name: 'Thailand', flag: '🇹🇭', dates: 'Sun, Aug 2 – Sun, Aug 16, 2026', members: 6, total: 482000,
-      days: [{ label: 'Sun, Aug 2', events: [['14:00', 'Landing in Bangkok'], ['19:00', 'Street food in Yaowarat']] },
-             { label: 'Tue, Aug 4', events: [['08:00', 'Train to Chiang Mai'], ['18:00', 'Night bazaar']] }] },
+    { id: 'edinburgh', name: 'Edinburgh', flag: '🏴', startISO: '2026-09-04', endISO: '2026-09-06', dates: 'Fri 4 Sep – Sun 6 Sep 2026', members: 4, total: 68400,
+      days: [{ label: 'Fri 4 Sep', events: [['18:00', 'Check-in in the Old Town'], ['20:30', 'Dinner on the Royal Mile']] },
+             { label: 'Sat 5 Sep', events: [['10:00', 'Edinburgh Castle'], ['15:00', 'Hike up Arthur’s Seat']] }] },
+    { id: 'london', name: 'London', flag: '🇬🇧', settled: false, startISO: '2026-03-12', endISO: '2026-03-15', dates: 'Thu 12 Mar – Sun 15 Mar 2026', members: 4, total: 121200,
+      days: [{ label: 'Thu 12 Mar', events: [['15:00', 'Check-in in Shoreditch'], ['20:00', 'Dinner at Dishoom']] },
+             { label: 'Fri 13 Mar', events: [['10:00', 'Tate Modern'], ['19:30', 'West End show']] }] },
+    { id: 'paris', name: 'Paris', flag: '🇫🇷', startISO: '2025-12-25', endISO: '2026-01-02', dates: 'Thu 25 Dec 2025 – Fri 2 Jan 2026', members: 3, total: 86450,
+      days: [{ label: 'Thu 25 Dec', events: [['16:00', 'Check-in in Le Marais'], ['20:30', 'Dinner at Chez Janou']] },
+             { label: 'Fri 26 Dec', events: [['10:00', 'Musée d’Orsay'], ['18:00', 'Christmas market at Tuileries']] }] },
+    { id: 'thailand', name: 'Thailand', flag: '🇹🇭', startISO: '2026-08-02', endISO: '2026-08-16', dates: 'Sun 2 Aug – Sun 16 Aug 2026', members: 6, total: 482000,
+      days: [{ label: 'Sun 2 Aug', events: [['14:00', 'Landing in Bangkok'], ['19:00', 'Street food in Yaowarat']] },
+             { label: 'Tue 4 Aug', events: [['08:00', 'Train to Chiang Mai'], ['18:00', 'Night bazaar']] }] },
   ],
   card: {
     last4: '4417', balance: 24000, expiry: '09/29',
@@ -109,10 +113,10 @@ const DATA = {
     ],
   },
   alerts: [
-    { id: 'a4', who: 'jamie', text: 'Jamie updated Sun, Sep 27', time: 'Yesterday', unread: true, target: null },
-    { id: 'a3', who: 'mark', text: 'Mark added Cruise Tour · 87,00 €', time: 'Fri, Sep 25', unread: true, target: { tx: 't6' } },
-    { id: 'a2', who: 'nic', text: 'Nic added Dinner 25/09 · 58,00 €', time: 'Fri, Sep 25', unread: false, target: { tx: 't8' } },
-    { id: 'a1', who: 'jamie', text: 'Jamie added you to Lisbon', time: 'Sun, Sep 20', unread: false, target: null },
+    { id: 'a4', who: 'jamie', text: 'Jamie updated Sun 27 Sep', time: 'Yesterday', unread: true, target: null },
+    { id: 'a3', who: 'mark', text: 'Mark added Cruise Tour · 87,00 €', time: 'Fri 25 Sep', unread: true, target: { tx: 't6' } },
+    { id: 'a2', who: 'nic', text: 'Nic added Dinner 25/09 · 58,00 €', time: 'Fri 25 Sep', unread: false, target: { tx: 't8' } },
+    { id: 'a1', who: 'jamie', text: 'Jamie added you to Lisbon', time: 'Sun 20 Sep', unread: false, target: null },
   ],
   account: [
     [['Profile', '', 'person'], ['Payment methods', 'Apple Pay · default', 'wallet'], ['Currency', 'EUR', 'euro']],
@@ -142,15 +146,34 @@ const parseMoney = (s) => {
   if (s.includes(',')) s = s.replace(/\./g, '').replace(',', '.');
   const n = parseFloat(s); return isNaN(n) ? 0 : Math.round(n * 100);
 };
-const evalMoney = (s) => {
-  s = String(s).replace(/\s|€|\$|£/g, '').replace(/[×x]/g, '*').replace(/÷/g, '/');
-  if (!/[+\-*/]/.test(s.replace(/^-/, ''))) return parseMoney(s);
-  const expr = s.replace(/[^\d.,+\-*/]/g, '').replace(/[+\-*/]+$/, '').replace(/\d[\d.]*(,\d*)?|,\d+/g, (n) => {
-    if (n.includes(',')) return String(parseFloat(n.replace(/\./g, '').replace(',', '.') || '0'));
-    const parts = n.split('.'); return parts.length === 2 && parts[1].length <= 2 ? n : n.replace(/\./g, '');
-  });
-  try { const v = Function('"use strict";return (' + (expr || '0') + ')')(); return isFinite(v) ? Math.max(0, Math.round(v * 100)) : 0; } catch (e) { return parseMoney(s); }
+// Plain amounts only: digits and one decimal comma (max 2 decimals).
+const cleanMoney = (v) => {
+  v = String(v).replace(/\./g, ',').replace(/[^\d,]/g, '');
+  const i = v.indexOf(',');
+  return i < 0 ? v : v.slice(0, i + 1) + v.slice(i + 1).replace(/,/g, '').slice(0, 2);
 };
+// UK dates (en-GB): "Sat 26 Sep", "23 Sep", "Wed 23 Sep – Sun 27 Sep 2026"
+// Newer ICU returns "Sept" for en-GB; Figma uses three-letter months.
+const fmtDate = (iso, o) => new Date(iso + 'T12:00').toLocaleDateString('en-GB', o).replace(/,/g, '').replace(/\bSept\b/g, 'Sep');
+const fDay = (iso) => fmtDate(iso, { weekday: 'short', day: 'numeric', month: 'short' });
+const fShort = (iso) => fmtDate(iso, { day: 'numeric', month: 'short' });
+const fRange = (a, b) => `${fDay(a)} – ${fDay(b)} ${new Date(b + 'T12:00').getFullYear()}`;
+// Trip range: "23 – 27 Sep" in one month, "25 Dec – 2 Jan" across months
+const tripRange = (a, b) => a.slice(0, 7) === b.slice(0, 7) ? `${+a.slice(8)} – ${fShort(b)}` : `${fShort(a)} – ${fShort(b)}`;
+const daysBetween = (a, b) => Math.round((new Date(b + 'T12:00') - new Date(a + 'T12:00')) / 864e5);
+let measureCtx;
+const textW = (s, font = '600 17px "Plus Jakarta Sans", system-ui, sans-serif') => { measureCtx = measureCtx || document.createElement('canvas').getContext('2d'); measureCtx.font = font; return measureCtx.measureText(s).width; };
+// Scroll only the nearest scroll container (screen or sheet) so a field sits mid-view.
+function revealInBox(el) {
+  const box = el && el.closest('.sheet-panel, .tab-panel, .screen__scroll'); if (!box) return;
+  const r = el.getBoundingClientRect(), b = box.getBoundingClientRect(), vv = window.visualViewport;
+  const bottom = Math.min(b.bottom, vv ? vv.offsetTop + vv.height : innerHeight), top = b.top + (box.classList.contains('screen__scroll') ? 104 : 16);
+  if (r.top >= top && r.bottom <= bottom - 16) return;
+  box.scrollBy({ top: r.top + r.height / 2 - (top + bottom) / 2, behavior: RM ? 'auto' : 'smooth' });
+}
+// Story clock in the status bar: 18:30 until dinner is decided, 22:00 for the expense part.
+function setClock(t) { if (S) S.clock = t; const el = document.getElementById('clock'); if (el) el.textContent = t; }
+const afterDinner = () => { if (S.poll && S.poll.status === 'closed' && S.clock !== '22:00') setClock('22:00'); };
 const M = (id) => S.members[id];
 const byOrder = (ids) => [...ids].sort((a, b) => S.order.indexOf(a) - S.order.indexOf(b));
 const tripMembers = () => byOrder(S.trip.memberIds);
@@ -250,8 +273,9 @@ const Tag = (content, variant = 'brand') => `<span class="tag tag--${variant}">$
 const MemberTags = (id) => (id === S.me ? Tag('Me', 'accent') : '') + (id === S.trip.admin ? Tag('Admin', 'brand') : '');
 const IconButton = (icon, { action = '', size = 20, cls = '', label = '', data = '' } = {}) =>
   `<button class="icon-btn ${cls}" data-action="${action}" ${data} aria-label="${label || icon}">${Icon(icon, size)}</button>`;
-const Button = (label, { variant = 'primary', action = '', cls = '', after = '', before = '', disabled = false, data = '' } = {}) =>
-  `<button class="btn btn--${variant} ${cls}" data-action="${action}" ${data} ${disabled ? 'disabled' : ''}>${before}${label}${after}</button>`;
+// soft: disabled look via aria-disabled, so a tap can still point at what's missing
+const Button = (label, { variant = 'primary', action = '', cls = '', after = '', before = '', disabled = false, soft = false, data = '' } = {}) =>
+  `<button class="btn btn--${variant} ${cls}" data-action="${action}" ${data} ${soft ? `aria-disabled="${!!disabled}"` : disabled ? 'disabled' : ''}>${before}${label}${after}</button>`;
 const Segmented = (items, value, action, cls = '') =>
   `<div class="segmented ${items.length === 2 ? 'segmented--2' : ''} ${cls}" role="tablist">${items.map(([v, l]) => `<button class="segmented__item${v === value ? ' is-active' : ''}" data-action="${action}" data-value="${v}">${l}</button>`).join('')}</div>`;
 const Checkbox = (checked) => `<span class="checkbox${checked ? ' is-checked' : ''}" role="checkbox" aria-checked="${checked}">${Icon('check', 20)}</span>`;
@@ -263,6 +287,8 @@ const Input = (value, icon = '', { action = '', data = '' } = {}) =>
 const Select = (value, opts) => Input(value, 'keyboard_arrow_down', opts);
 const TextInput = ({ value = '', placeholder = '', name = '', after = '', attrs = '' }) =>
   `<div class="input"><input class="input__control" data-input="${name}" value="${esc(value)}" placeholder="${esc(placeholder)}" ${attrs}>${after}</div>`;
+const DateInput = (name, iso, attrs = '') => `<label class="input input--picker"><span class="input__value">${fDay(iso)}</span><input class="input__native" type="date" data-input="${name}" value="${iso}" ${attrs}>${Icon('calendar_today', 14)}</label>`;
+const TimeInput = (name, t, attrs = '') => `<label class="input input--picker"><span class="input__value">${t}</span><input class="input__native" type="time" data-input="${name}" value="${t}" ${attrs}>${Icon('schedule', 14)}</label>`;
 const Toast = (text, icon = 'check_circle') => `<div class="toast"><span class="toast__icon">${Icon(icon === 'check_circle' ? 'check' : icon, 16)}</span><span>${esc(text)}</span></div>`;
 const NavHeader = (title, back = 'back') =>
   `<header class="nav-header"><button class="icon-btn icon-btn--ghost nav-header__back" data-action="${back}" aria-label="Back">${Icon('arrow_back_ios_new', 20)}</button><h1 class="nav-header__title">${title}</h1></header>`;
@@ -581,25 +607,112 @@ SCREENS.trips = {
     if (!l.ui.built) {
       l.ui.built = true;
       l.el.innerHTML = `<div class="screen__scroll trips-scroll">
-      <div class="screen-head trips-top"><h1 class="screen-title">My trips</h1><p class="trips-sub">Plan, vote and split costs with your group.</p></div>
+      <div class="screen-head trips-top"><h1 class="screen-title">My trips</h1><p class="trips-sub">More trips, less hassle!</p><div class="trips-controls" data-slot="trips-controls"></div></div>
       <div class="content stack-16 trips-content"><div class="stack-16" data-slot="trips-body"></div></div></div>`;
     }
-    const di = dayIndex(S.today) + 1, dn = S.days.length, tints = ['purple', 'green', 'orange', 'pink', 'yellow'];
-    const when = (d) => { const m = d.match(/([A-Z][a-z]{2}) \d+.*?(\d{4})$/); return m ? [m[1], m[2]] : ['', '']; };
-    const past = [...S.pastTrips].sort((a, b) => (when(b.dates)[1] + 'JanFebMarAprMayJunJulAugSepOctNovDec'.indexOf(when(b.dates)[0]) / 100).localeCompare(when(a.dates)[1] + 'JanFebMarAprMayJunJulAugSepOctNovDec'.indexOf(when(a.dates)[0]) / 100));
-    const [am, ay] = when(t.dates);
-    const total = S.pastTrips.length + 2;
-    const row = (cls, time, node, body, action, data = '', style = '') => `<div class="j-row ${cls}" style="${style};--m:${total - 1 - +(style.match(/--n:(\d+)/) || [0, 0])[1]}"><span class="j-row__time">${time}</span><span class="j-node">${node}</span><button class="j-card" data-action="${action}" ${data}><span class="j-row__body">${body}</span><span class="j-card__chev">${Icon(cls.includes('new') ? 'add' : 'chevron_right', 20)}</span></button></div>`;
-    const nx = (() => { for (const d of S.days.slice(dayIndex(S.today))) { const e = d.events.find((x) => eventStatus(d.id, x.time) === 'upcoming'); if (e) return [d, e]; } return null; })();
-    const pollNext = S.poll && S.poll.status !== 'closed';
-    if (false) $('[data-slot=up-next]', l.el).innerHTML = pollNext || nx ? `<button class="up-next" data-action="open-trip"><span class="up-next__label">${Icon(pollNext ? 'how_to_vote' : 'schedule', 16)}Up next</span><span class="up-next__text">${pollNext ? 'Dinner poll is live' : `${esc(nx[1].title)} · ${nx[0].id === S.today ? 'Today' : nx[0].label.split(',')[0]} ${nx[1].time}`}</span>${Icon('chevron_right', 16)}</button>` : '';
+    const Y = S.tripsYear, inYear = (x) => !Y || (+x.startISO.slice(0, 4) <= Y && +x.endISO.slice(0, 4) >= Y);
+    const years = [...new Set([t, ...S.pastTrips].flatMap((x) => [+x.startISO.slice(0, 4), +x.endISO.slice(0, 4)]))].sort((a, b) => b - a);
+    l.ui.years = years;
+    $('[data-slot=trips-controls]', l.el).innerHTML = `<button class="year-select${Y ? ' is-active' : ''}" data-action="trips-year" aria-haspopup="dialog" aria-label="Filter by year">${Icon('event', 16)}<span>${Y || 'All years'}</span>${Icon('keyboard_arrow_down', 16)}</button>
+      <div class="view-toggle" role="tablist" aria-label="View">${[['list', 'view_agenda', 'List view'], ['calendar', 'calendar_month', 'Calendar view']].map(([v, i, a]) => `<button class="${S.tripsView === v ? 'is-active' : ''}" data-action="trips-view" data-value="${v}" role="tab" aria-selected="${S.tripsView === v}" aria-label="${a}">${Icon(i, 20)}</button>`).join('')}</div>`;
+    if (S.tripsView === 'calendar') { $('[data-slot=trips-body]', l.el).innerHTML = TripsCalendar(Y); bindCalSwipe(l); return; }
+    const showNow = inYear(t);
+    const past = [...S.pastTrips].filter(inYear).sort((a, b) => b.startISO.localeCompare(a.startISO));
+    const total = past.length + 2;
+    const row = (cls, time, cover, body, action, data, n) => `<div class="j-row ${cls}" style="--n:${n};--m:${total - 1 - n}"><span class="j-row__time">${time}</span><span class="j-node" aria-hidden="true"></span><button class="j-card" data-action="${action}" ${data}>${cover}<span class="j-row__body">${body}</span><span class="j-card__chev">${Icon(cls.includes('new') ? 'add' : 'chevron_right', 20)}</span></button></div>`;
+    const today = isoOfDay(S.today), left = daysBetween(today, t.endISO), toStart = daysBetween(today, t.startISO);
+    const status = toStart > 0 ? `Starts in ${toStart} day${toStart === 1 ? '' : 's'}` : left <= 0 ? 'Last day' : `${left} day${left === 1 ? '' : 's'} left`;
+    const mon = (iso) => fmtDate(iso, { month: 'short' }), sameMonth = (a, b) => a.slice(0, 7) === b.slice(0, 7);
+    const range = tripRange;
+    // Side label: one month + year; two months + year; or each month with its short year when the trip crosses New Year
+    const when = (a, b) => sameMonth(a, b) ? `<b>${mon(a)}</b><small>${a.slice(0, 4)}</small>`
+      : a.slice(0, 4) === b.slice(0, 4) ? `<b>${mon(a)}–${mon(b)}</b><small>${a.slice(0, 4)}</small>`
+      : `<b>${mon(a)} ’${a.slice(2, 4)}</b><b>${mon(b)} ’${b.slice(2, 4)}</b>`;
     $('[data-slot=trips-body]', l.el).innerHTML = `<div class="journey">
-      ${row('j-row--new', '<b>Next</b>', Icon('add', 20), '<span class="j-row__title">Plan a new trip</span>', 'soon', '', '--n:0')}
-      ${row('j-row--now', '<small>Now</small>', `<span aria-hidden="true">${t.flag}</span>`, `<span class="j-row__title">${esc(t.name)}<span class="tag tag--accent"><span class="live-dot"></span>Day ${di} of ${dn}</span></span><span class="j-row__sub">${t.start} – ${t.end}</span>`, 'open-trip', '', '--n:1')}
-      ${past.map((p, i) => { const [m, y] = when(p.dates); return row('', `<b>${m}</b><small>${y}</small>`, `<span aria-hidden="true">${p.flag}</span>`, `<span class="j-row__title">${p.name}</span><span class="j-row__sub">${p.dates.replace(/[A-Z][a-z]{2}, /g, '').replace(/, \d{4}$/, '')}</span>`, 'open-past', `data-id="${p.id}"`, `--n:${i + 2}`); }).join('')}
+      ${row('j-row--new', '<b>Next</b>', '', '<span class="j-row__title">Plan a new trip</span>', 'soon', '', 0)}
+      ${showNow ? row('j-row--now', '<small>Now</small>', TripCover(t.id), `<span class="j-row__title">${esc(t.name)}<span class="tag tag--accent"><span class="live-dot"></span>${status}</span></span><span class="j-row__sub">${range(t.startISO, t.endISO)}</span>${SettleMark(allSquare())}`, 'open-trip', '', 1) : ''}
+      ${past.map((p, i) => row('', when(p.startISO, p.endISO), TripCover(p.id), `<span class="j-row__title">${esc(p.name)}</span><span class="j-row__sub">${range(p.startISO, p.endISO)}</span>${SettleMark(p.settled !== false)}`, 'open-past', `data-id="${p.id}"`, i + 2)).join('')}
     </div>`;
   },
 };
+const SettleMark = (done) => `<span class="settle-mark${done ? ' is-done' : ''}">${Icon(done ? 'check_circle' : 'schedule', 12)}${done ? 'Settled' : 'Not settled'}</span>`;
+// Calendar view: a single month you can swipe through; trip days filled in the trip's tone, Monday-first weeks.
+const TRIP_TONE = { lisbon: 'brand', thailand: 'accent', london: 'strong', paris: 'bold', edinburgh: 'neutral' };
+const MONTHS_LONG = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const allTrips = () => [{ ...S.trip, action: 'open-trip', data: '' }, ...S.pastTrips.map((p) => ({ ...p, action: 'open-past', data: `data-id="${p.id}"` }))];
+const monthKey = (y, m) => `${y}-${String(m).padStart(2, '0')}`;
+const shiftMonth = (k, n) => { let y = +k.slice(0, 4), m = +k.slice(5) + n; while (m > 12) { m -= 12; y++; } while (m < 1) { m += 12; y--; } return monthKey(y, m); };
+function tripMonths() {
+  const keys = new Set();
+  allTrips().forEach((x) => { for (let k = x.startISO.slice(0, 7); k <= x.endISO.slice(0, 7); k = shiftMonth(k, 1)) keys.add(k); });
+  return [...keys].sort();
+}
+function calRange(Y) {
+  const now = isoOfDay(S.today).slice(0, 7), ks = tripMonths();
+  return Y ? [monthKey(Y, 1), monthKey(Y, 12)] : [ks[0], ks[ks.length - 1] > now ? ks[ks.length - 1] : now];
+}
+function calStart(Y) {
+  const now = isoOfDay(S.today).slice(0, 7);
+  if (!Y || +now.slice(0, 4) === Y) return now;
+  const ks = tripMonths().filter((k) => +k.slice(0, 4) === Y);
+  return ks.length ? ks[ks.length - 1] : monthKey(Y, 12);
+}
+function TripsCalendar(Y) {
+  const [lo, hi] = calRange(Y);
+  if (!S.calMonth || S.calMonth < lo || S.calMonth > hi) S.calMonth = calStart(Y);
+  const k = S.calMonth, y = +k.slice(0, 4), m = +k.slice(5) - 1, days = new Date(y, m + 1, 0).getDate(), lead = (new Date(y, m, 1).getDay() + 6) % 7;
+  const today = isoOfDay(S.today), trips = allTrips().filter((x) => x.startISO.slice(0, 7) <= k && x.endISO.slice(0, 7) >= k).sort((a, b) => a.startISO.localeCompare(b.startISO));
+  const cells = [];
+  for (let i = 0; i < lead; i++) cells.push('<span class="cal-day"></span>');
+  for (let d = 1; d <= days; d++) {
+    const iso = `${k}-${String(d).padStart(2, '0')}`, x = trips.find((t) => iso >= t.startISO && iso <= t.endISO), col = (lead + d - 1) % 7;
+    const cls = (x ? ` is-trip tone-${TRIP_TONE[x.id] || 'brand'}${iso === x.startISO || col === 0 || d === 1 ? ' is-start' : ''}${iso === x.endISO || col === 6 || d === days ? ' is-end' : ''}` : '') + (iso === today ? ' is-today' : '');
+    cells.push(x ? `<button class="cal-day${cls}" data-action="${x.action}" ${x.data} aria-label="${esc(x.name)}, ${fDay(iso)}">${d}</button>` : `<span class="cal-day${cls}">${d}</span>`);
+  }
+  const anim = S.calDir ? (S.calDir > 0 ? ' is-in-next' : ' is-in-prev') : ''; S.calDir = 0;
+  return `<div class="cal">
+    <section class="cal-month" data-swipe>
+      <div class="cal-head">
+        <button class="cal-nav" data-action="cal-step" data-dir="-1" aria-label="Previous month" ${k <= lo ? 'disabled' : ''}>${Icon('chevron_left', 20)}</button>
+        <h2 class="cal-month__title">${MONTHS_LONG[m]} ${y}</h2>
+        <button class="cal-nav" data-action="cal-step" data-dir="1" aria-label="Next month" ${k >= hi ? 'disabled' : ''}>${Icon('chevron_right', 20)}</button>
+      </div>
+      <div class="cal-body${anim}">
+        <div class="cal-grid">${['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((w) => `<span class="cal-wd">${w}</span>`).join('')}${cells.join('')}</div>
+      </div>
+    </section>
+    <div class="stack-8">
+      <span class="section-label">${trips.length ? 'Trips in ' + MONTHS_LONG[m] : 'No trips in ' + MONTHS_LONG[m]}</span>
+      ${trips.length ? `<div class="list">${trips.map((x) => `<button class="cal-legend__item tone-${TRIP_TONE[x.id] || 'brand'}" data-action="${x.action}" ${x.data}>${TripCover(x.id).replace('trip-cover', 'trip-cover trip-cover--sm')}<span class="list-row__main"><span class="cal-legend__name">${esc(x.name)}</span><span>${tripRange(x.startISO, x.endISO)}</span></span>${Icon('chevron_right', 20)}</button>`).join('')}</div>` : '<p class="list-row__sub" style="margin:0">Swipe to another month, or plan a new trip.</p>'}
+    </div>
+  </div>`;
+}
+function calStep(l, dir) {
+  const [lo, hi] = calRange(S.tripsYear), next = shiftMonth(S.calMonth, dir);
+  if (next < lo || next > hi) return;
+  S.calMonth = next; S.calDir = dir; SCREENS.trips.render(l);
+}
+function bindCalSwipe(l) {
+  const box = $('[data-swipe]', l.el); if (!box) return;
+  let x0 = null, y0 = 0;
+  box.addEventListener('pointerdown', (e) => { x0 = e.clientX; y0 = e.clientY; });
+  box.addEventListener('pointercancel', () => (x0 = null));
+  box.addEventListener('pointerup', (e) => {
+    if (x0 == null) return; const dx = e.clientX - x0, dy = e.clientY - y0; x0 = null;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { calSwiped = Date.now(); calStep(l, dx < 0 ? 1 : -1); }
+  });
+}
+let calSwiped = 0;
+// Trip covers: flat landmarks in app colours, a different light/bold mix per trip.
+const cf = (v) => `style="fill:var(--${v})"`, cs = (v, w = 1.5) => `style="fill:none;stroke:var(--${v});stroke-width:${w};stroke-linecap:round;stroke-linejoin:round"`;
+const COVERS = {
+  lisbon: `<rect width="64" height="64" ${cf('primary-90')}/><circle cx="50" cy="15" r="6" ${cf('accent-50')}/><rect y="46" width="64" height="18" ${cf('primary-50')}/><path d="M7 54h9M28 58h12M46 52h10" ${cs('primary-80')}/><path d="M-2 40Q8 39 17 18Q31 37 45 18Q54 39 66 40" ${cs('primary-35')}/><path d="M24 26v13M31 28v11M38 26v13M10 34v5M52 34v5" ${cs('primary-35', 1)}/><rect x="15" y="16" width="4" height="32" ${cf('primary-35')}/><rect x="43" y="16" width="4" height="32" ${cf('primary-35')}/><rect y="39" width="64" height="3" ${cf('primary-35')}/>`,
+  thailand: `<rect width="64" height="64" ${cf('accent-90')}/><circle cx="13" cy="13" r="6" ${cf('accent-50')}/><rect y="54" width="64" height="10" ${cf('accent-40')}/><rect x="12" y="40" width="26" height="14" ${cf('primary-50')}/><rect x="21" y="45" width="8" height="9" ${cf('primary-10')}/><path d="M6 42L25 31L44 42Z" ${cf('primary-35')}/><path d="M11 33L25 23L39 33Z" ${cf('primary-35')}/><path d="M16 24L25 15L34 24Z" ${cf('primary-35')}/><path d="M25 15V7" ${cs('accent-40', 2)}/><path d="M52 55C51 46 51 38 54 30" ${cs('primary-10', 2.5)}/><path d="M54 30C48 26 43 28 41 33C46 30 50 30 54 30ZM54 30C58 24 63 25 65 29C60 28 57 29 54 30ZM54 30C52 24 54 19 58 17C56 22 56 26 54 30ZM54 30C60 31 63 35 62 40C59 35 57 33 54 30Z" ${cf('primary-50')}/>`,
+  london: `<rect width="64" height="64" ${cf('primary-35')}/><ellipse cx="49" cy="14" rx="9" ry="3.5" ${cf('primary-50')}/><ellipse cx="12" cy="24" rx="7" ry="2.5" ${cf('primary-50')}/><rect y="56" width="64" height="8" ${cf('primary-10')}/><rect x="25" y="28" width="14" height="28" ${cf('primary-90')}/><path d="M29 32v20M35 32v20" ${cs('primary-70')}/><rect x="23" y="16" width="18" height="13" ${cf('primary-95')}/><circle cx="32" cy="22.5" r="4.5" ${cf('accent-50')}/><path d="M32 22.5V19.5M32 22.5h2.2" ${cs('primary-10', 1.2)}/><path d="M23 16L32 5L41 16Z" ${cf('primary-80')}/><path d="M32 5V1" ${cs('primary-80')}/>`,
+  edinburgh: `<rect width="64" height="64" ${cf('neutral-90')}/><circle cx="51" cy="13" r="5" ${cf('accent-90')}/><path d="M0 64V46C10 40 18 38 26 39C36 34 48 36 64 44V64Z" ${cf('neutral-50')}/><rect x="18" y="28" width="30" height="12" ${cf('neutral-30')}/><rect x="16" y="22" width="8" height="18" ${cf('neutral-30')}/><rect x="40" y="18" width="8" height="22" ${cf('neutral-30')}/><path d="M16 22h2v-2h2v2h2v-2h2v2M40 18h2v-2h2v2h2v-2h2v2" ${cs('neutral-30', 1)}/><path d="M43 18V9" ${cs('neutral-30', 1)}/><path d="M43 9h6l-2 2 2 2h-6" ${cf('accent-50')}/><rect x="28" y="32" width="3" height="4" ${cf('accent-50')}/><rect x="35" y="32" width="3" height="4" ${cf('accent-50')}/><rect y="58" width="64" height="6" ${cf('primary-35')}/>`,
+  paris: `<rect width="64" height="64" ${cf('accent-50')}/><circle cx="14" cy="15" r="6" ${cf('accent-90')}/><rect y="56" width="64" height="8" ${cf('accent-40')}/><path d="M32 4L34.5 20H36L38 30H40.5L46 56H39.5C38 48 35.5 44 32 44C28.5 44 26 48 24.5 56H18L23.5 30H26L28 20H29.5Z" ${cf('primary-10')}/><rect x="25" y="29" width="14" height="2" ${cf('accent-50')}/><rect x="28.5" y="19" width="7" height="1.5" ${cf('accent-50')}/>`,
+};
+const TripCover = (id) => `<span class="trip-cover" aria-hidden="true"><svg viewBox="0 0 64 64">${COVERS[id] || ''}</svg></span>`;
 
 /* ---------- Past trip (read-only) ---------- */
 SCREENS.pastTrip = {
@@ -655,6 +768,7 @@ SCREENS.trip = {
       if (S.poll && S.poll.fresh) { $('.poll', ip)?.classList.add('is-entering'); S.poll.fresh = false; }
       S.days.forEach((d) => d.events.forEach((e) => delete e.landing));
     } else patchPoll(ip);
+    if (u.tab === 'expenses') afterDinner();
     $('[data-panel=expenses]', l.el).innerHTML = ExpensesPanel(l);
     const ep = $('[data-panel=expenses]', l.el), still = u.expTab === 'balances' && allSquare();
     ep.classList.toggle('is-still', still); if (still) ep.scrollTop = 0;
@@ -734,9 +848,9 @@ function editEvent(dayId, id) {
   const [, ev] = findEvent(dayId, id); if (!ev) return;
   openSheet(SheetHead('Edit plan') + `<div class="stack-16">
     ${Field('What', TextInput({ value: ev.title, name: 'ev-title', attrs: 'autocomplete="off"' }))}
-    <div class="btn-row">
+    <div class="when-field">
       ${Field('Day', `<label class="input"><select class="input__control" data-input="ev-day">${S.days.map((d) => `<option value="${d.id}"${d.id === dayId ? ' selected' : ''}>${d.label}</option>`).join('')}</select>${Icon('keyboard_arrow_down', 14)}</label>`)}
-      ${Field('Time', `<label class="input"><input class="input__control" type="time" data-input="ev-time" value="${ev.time}">${Icon('schedule', 14)}</label>`)}
+      ${Field('Time', TimeInput('ev-time', ev.time, 'step="300"'))}
     </div>
     ${Button('Save changes', { cls: 'btn--block', action: 'event-save', data: `data-day="${dayId}" data-id="${id}"` })}
   </div>`);
@@ -781,7 +895,7 @@ function ExpensesPanel(l) {
     body = `
       <div class="all-square">
         ${Celebrate()}
-        <h3 class="all-square__title">Obrigado, everyone!</h3>
+        <h3 class="all-square__title">Tudo pago, everyone!</h3>
         <p class="all-square__text">There is nothing left to pay.</p>
         ${Button('Share summary', { variant: 'outline', after: Icon('ios_share', 20), action: 'share-summary', cls: '', data: 'style="margin-top:12px"' })}
       </div>`;
@@ -891,11 +1005,13 @@ SCREENS.members = {
         <span class="section-label">Participants</span>
         <div class="list" data-slot="list">${tripMembers().map((id) => `<div class="list-row">${Avatar(id, 'md')}<span class="list-row__main"><span class="list-row__title">${M(id).name}${MemberTags(id)}</span></span></div>`).join('')}</div>
         <button class="add-row" data-action="member-new" style="margin-top:8px">${Icon('person_add', 20)}New participant</button>
+        <button class="add-row" data-action="member-invite">${Icon('link', 20)}Invite via link</button>
       </div>
       <div class="btn-row" style="margin-top:auto">
         ${Button('Save', { variant: 'outline', action: 'member-save', disabled: true })}
         ${Button('Save & share', { action: 'member-save', data: 'data-share="1"', disabled: true })}
-      </div></div></div>`;
+      </div>
+      ${Button('Leave group', { variant: 'tertiary', cls: 'btn--block members__leave', before: Icon('logout', 20), action: 'member-leave' })}</div></div>`;
   },
 };
 
@@ -932,6 +1048,7 @@ SCREENS.plan = {
       u.options = l.params.options || ['', ''];
       u.place = l.params.place || '';
       u.multiple = true; u.limit = true; u.limitMin = 15;
+      u.initSig = planSig(u);
     }
     const filled = u.options.filter((o) => o.trim()).length;
     const optionField = (v, i) => `<div class="option-field" data-index="${i}">${TextInput({ value: v, placeholder: `Option ${i + 1}`, name: 'option', attrs: `data-index="${i}" autocomplete="off"`, after: v ? `<button class="input__clear" data-action="clear-option" data-index="${i}" aria-label="Clear">${Icon('cancel', 20)}</button>` : '' })}</div>`;
@@ -946,11 +1063,11 @@ SCREENS.plan = {
       </div>`;
     const pickFields = Field('Place', `<div class="option-field" data-index="p">${TextInput({ value: u.place, placeholder: 'Search a place', name: 'place', attrs: 'autocomplete="off"', after: Icon('search', 20) })}</div>`);
     l.el.innerHTML = `<div class="screen__scroll"><div class="page">
-      ${NavHeader('Add new plan')}
+      ${NavHeader('Add new plan', 'plan-back')}
       <div class="stack-16" style="margin-top:16px">
         ${Field('When', `<div class="when-field">
-          <label class="input"><input class="input__control" type="date" data-input="plan-date" min="${S.trip.startISO}" max="${S.trip.endISO}" value="${isoOfDay(u.day)}">${Icon('calendar_today', 14)}</label>
-          <label class="input"><input class="input__control" type="time" step="300" data-input="plan-time" value="${u.time}">${Icon('schedule', 14)}</label>
+          ${DateInput('plan-date', isoOfDay(u.day), `min="${S.trip.startISO}" max="${S.trip.endISO}"`)}
+          ${TimeInput('plan-time', u.time, 'step="300"')}
         </div><span class="field__error" data-slot="when-error"></span>`)}
         ${Field('Type', Select(u.type || 'Choose a type', { action: 'plan-type', data: u.type ? '' : 'data-empty="1"' }))}
         ${Segmented([['pick', 'My pick'], ['group', 'Ask the group<span class="new-badge">New</span>']], u.mode, 'plan-mode')}
@@ -958,13 +1075,43 @@ SCREENS.plan = {
       </div>
       <div class="stack-8" style="margin-top:auto;padding-top:24px">
         ${u.mode === 'group'
-          ? '<p class="helper" style="margin:0">Winner will be auto-added to the itinerary</p>' + Button('Create poll', { cls: 'btn--block', action: 'create-poll', disabled: !planReady(u) })
-          : Button('Add plan', { cls: 'btn--block', action: 'add-pick', disabled: !u.place.trim() })}
+          ? '<p class="helper" style="margin:0">Winner will be auto-added to the itinerary</p>' + Button('Create poll', { cls: 'btn--block', action: 'create-poll', disabled: !planReady(u), soft: true })
+          : Button('Add plan', { cls: 'btn--block', action: 'add-pick', disabled: !planReady(u), soft: true })}
       </div></div></div>`;
     if (u.showErr) showPlanError(l);
+    markPlanErrors(l);
   },
 };
-const planReady = (u) => u.options.filter((o) => o.trim()).length >= 2 && !!u.question.trim() && !!u.type;
+const planSig = (u) => JSON.stringify([u.day, u.time, u.type, u.question.trim(), u.options.map((o) => o.trim()), u.place.trim(), u.multiple, u.limit, u.limitMin]);
+// Required: type + place (My pick), or type + question + at least two options (Ask the group)
+function planMissing(u) {
+  const m = []; if (!u.type) m.push('type');
+  if (u.mode === 'pick') { if (!u.place.trim()) m.push('place'); return m; }
+  if (!u.question.trim()) m.push('question');
+  let need = 2 - u.options.filter((o) => o.trim()).length;
+  u.options.forEach((o, i) => { if (need > 0 && !o.trim()) { m.push('option' + i); need--; } });
+  return m;
+}
+const planReady = (u) => !planMissing(u).length;
+const planEl = (l, k) => k === 'type' ? $('[data-action=plan-type]', l.el) : k === 'place' ? $('[data-input=place]', l.el) : k === 'question' ? $('[data-input=question]', l.el) : $(`[data-input=option][data-index="${k.slice(6)}"]`, l.el);
+function markPlanErrors(l) {
+  const miss = l.ui.showReq ? planMissing(l.ui) : [];
+  $$('.input.is-req', l.el).forEach((i) => i.classList.remove('is-error', 'is-req'));
+  miss.forEach((k) => { const el = planEl(l, k), box = el && el.closest('.input'); if (box) box.classList.add('is-error', 'is-req'); });
+  const b = $('[data-action=create-poll], [data-action=add-pick]', l.el); if (b) b.setAttribute('aria-disabled', String(!planReady(l.ui)));
+}
+function trySavePlan(l) {
+  const miss = planMissing(l.ui);
+  if (miss.length) { l.ui.showReq = true; markPlanErrors(l); const el = planEl(l, miss[0]); if (el) { el.focus(); revealInBox(el); } return; }
+  if (!showPlanError(l, true)) return;
+  if (l.ui.mode === 'group') createPoll(l.ui); else addPick(l.ui);
+}
+// "Save changes?" modal for Back with unsaved data
+let saveCb = null;
+function askSave(text, onSave) {
+  openSheet(`<h2 class="modal__title">Save changes?</h2><p class="modal__text">${text}</p><div class="btn-row">${Button('Don’t save', { variant: 'tertiary', action: 'discard-yes' })}${Button('Save', { action: 'save-yes' })}</div>`, { modal: true });
+  saveCb = onSave;
+}
 const PollIntro = (u) => {
   const others = tripMembers().filter((id) => id !== S.me);
   return `<div class="poll-intro">
@@ -979,13 +1126,14 @@ function suggestFor(t) {
   const ex = t.dataset.input === 'option' ? l.ui.options.filter((o, j) => j !== +t.dataset.index).map((o) => o.trim()).filter(Boolean) : [];
   showSuggestions(t.closest('.option-field'), t.value, ex);
 }
+const placeSub = (n) => { const p = S.places[n]; return p ? `${p.area.split(',')[0]} · ${p.distance}` : 'Lisbon'; };
 function showSuggestions(fieldEl, query, exclude = []) {
   $$('.suggestions').forEach((s) => s.remove());
   const q = query.trim().toLowerCase();
   const names = Object.keys(S.places).filter((n) => !exclude.includes(n) && (!q || n.toLowerCase().includes(q))).slice(0, 4);
   if (!names.length) return;
   const hl = (n) => { const i = n.toLowerCase().indexOf(q); return q && i >= 0 ? esc(n.slice(0, i)) + '<mark>' + esc(n.slice(i, i + q.length)) + '</mark>' + esc(n.slice(i + q.length)) : esc(n); };
-  fieldEl.insertAdjacentHTML('beforeend', `<div class="suggestions">${names.map((n) => `<button class="suggestion" data-suggest="${esc(n)}">${Icon('location_on', 20)}<span class="list-row__main"><span class="suggestion__name">${hl(n)}</span><span class="suggestion__sub">Lisbon, Portugal</span></span></button>`).join('')}</div>`);
+  fieldEl.insertAdjacentHTML('beforeend', `<div class="suggestions">${names.map((n) => `<button class="suggestion" data-suggest="${esc(n)}">${Icon('location_on', 20)}<span class="list-row__main"><span class="suggestion__name">${hl(n)}</span><span class="suggestion__sub">${esc(placeSub(n))}</span></span></button>`).join('')}</div>`);
 }
 
 /* ---------- 05 · Add expense ---------- */
@@ -1000,16 +1148,52 @@ function newDraft() {
   return { type: 'paid', amount: 0, amountText: '0,00', what: '', when: S.today, paidBy: S.me, split: 'equal', currency: '€',
     shares: splitIds().map((member) => ({ member, amount: 0, included: true, locked: false })) };
 }
-function aiDraft(custom = true) {
+// The receipt can't know who paid: keep the current payer.
+// Reads the optional request and returns { draft } or { error }. Adjusted rows are Manual, full payers Automatic.
+const AI_WINE = /\b(wine|wines|alvarinho|drinks?|drank|drinking|alcohol|booze|glass|glasses)\b/;
+const AI_FOOD = /\b(food|meals?|dishes|eat|ate|eating|starters?|mains?|desserts?|couvert)\b/;
+const AI_EXCL = /\b(remove|exclude|excluding|without|skip|leave out|take out|take off|not|no|didn't|did not|don't|doesn't|does not|isn't|wasn't|won't|shouldn't|never|except|minus|drop)\b/;
+const AI_ONLY = /\b(only|just)\b/;
+const AI_PAY = /\b(pays?|paid|covers?|covered|treats?|treated)\b/;
+const AI_EQUAL = /\b(equal|equally|evenly|even|same)\b/;
+const AI_HINT = 'Try something like “Nic didn’t drink wine”';
+function aiParse(text, paidBy = S.me) {
   const r = S.receipt, ids = splitIds();
   const food = r.food.reduce((s, [, v]) => s + v, 0), wine = r.wine.reduce((s, [, v]) => s + v, 0);
-  if (!custom) { const eq = split(food + wine, ids); return { type: 'paid', amount: food + wine, amountText: money(food + wine), what: 'Dinner Sat, Sep 26', when: S.today, paidBy: 'jamie', split: 'equal', currency: '€',
-    shares: ids.map((member) => ({ member, amount: eq[member], included: true, locked: false })) }; }
-  const drinkers = ids.filter((id) => !r.wineExcluded.includes(id));
-  const f = split(food, ids), w = split(wine, drinkers);
-  return { type: 'paid', amount: food + wine, amountText: money(food + wine), what: 'Dinner Sat, Sep 26', when: S.today, paidBy: 'jamie', split: 'unequal', currency: '€',
-    shares: ids.map((member) => ({ member, amount: (f[member] || 0) + (w[member] || 0), included: true, locked: true })) };
+  const base = { type: 'paid', amount: food + wine, amountText: money(food + wine), what: 'Dinner', when: S.today, paidBy, currency: '€' };
+  const equal = () => { const eq = split(food + wine, ids); return { draft: { ...base, split: 'equal', shares: ids.map((member) => ({ member, amount: eq[member], included: true, locked: false })) } }; };
+  const t = String(text).toLowerCase().replace(/[’‘]/g, "'").trim();
+  if (!t) return equal();
+  const names = ids.map((id) => [id, M(id).name.toLowerCase()]);
+  const out = { all: new Set(), food: new Set(), wine: new Set() }, only = {};
+  let wantsEqual = false;
+  for (const cl of t.split(/[.;!?\n]+|\bbut\b|\balso\b|\bthen\b/).map((s) => s.trim()).filter((s) => /[a-z]/.test(s))) {
+    const who = [...new Set([...names.filter(([, n]) => new RegExp('\\b' + n + '\\b').test(cl)).map(([id]) => id), ...(/\b(me|i|myself)\b/.test(cl) ? [S.me] : [])])];
+    if (!who.length) {
+      if (AI_EQUAL.test(cl)) { wantsEqual = true; continue; }
+      return { error: AI_EXCL.test(cl) || AI_ONLY.test(cl) ? 'I couldn’t find that person in this trip' : 'Sorry, I didn’t get that · ' + AI_HINT };
+    }
+    const scope = AI_WINE.test(cl) ? 'wine' : AI_FOOD.test(cl) ? 'food' : 'all';
+    if (AI_ONLY.test(cl) || (AI_PAY.test(cl) && !AI_EXCL.test(cl))) only[scope] = [...new Set([...(only[scope] || []), ...who])];
+    else if (AI_EXCL.test(cl)) who.forEach((id) => out[scope].add(id));
+    else return { error: 'Sorry, I didn’t get that · ' + AI_HINT };
+  }
+  if (only.all) ids.forEach((id) => { if (!only.all.includes(id)) out.all.add(id); });
+  const payers = (k) => (only[k] || ids).filter((id) => !out.all.has(id) && !out[k].has(id));
+  const fp = payers('food'), wp = payers('wine');
+  if (!fp.length && !wp.length) return { error: 'Someone has to pay for this dinner' };
+  if (!fp.length) return { error: 'Someone has to pay for the food' };
+  if (!wp.length) return { error: 'Someone has to pay for the wine' };
+  if (fp.length === ids.length && wp.length === ids.length) return equal();
+  const f = split(food, fp), w = split(wine, wp);
+  const d = { ...base, split: 'unequal', shares: ids.map((member) => {
+    const inc = fp.includes(member) || wp.includes(member);
+    return { member, amount: (f[member] || 0) + (w[member] || 0), included: inc, locked: inc && !(fp.includes(member) && wp.includes(member)) };
+  }) };
+  resplit(d);
+  return { draft: d };
 }
+// Manual (locked) rows keep their value; Automatic rows share what's left of the total.
 function resplit(d) {
   const inc = d.shares.filter((s) => s.included);
   d.shares.forEach((s) => { if (!s.included) { s.amount = 0; s.locked = false; } });
@@ -1023,25 +1207,50 @@ function setTransferTo(d, to) {
   if (!d.what.trim() || d.autoWhat) { d.what = 'Transfer to ' + M(to).name; d.autoWhat = true; }
   d.shares.forEach((s) => { s.included = s.member === to; s.locked = false; }); resplit(d);
 }
-const draftSig = (d) => JSON.stringify([d.amount, d.what.trim(), d.when, d.paidBy, d.currency, d.shares.map((s) => [s.member, s.included, s.included ? s.amount : 0])]);
+const draftSig = (d) => JSON.stringify([d.amount, d.what.trim(), d.when, d.paidBy, d.currency, d.type, d.shares.map((s) => [s.member, s.included, s.included ? s.amount : 0])]);
+const shareSum = (d) => d.shares.reduce((a, s) => a + (s.included ? s.amount : 0), 0);
+const expenseMissing = (d) => [!(d.amount > 0) && 'amount', !d.what.trim() && 'what', !d.when && 'when'].filter(Boolean);
+const draftValid = (d) => !expenseMissing(d).length && d.shares.some((s) => s.included) && shareSum(d) === d.amount;
 const submitBlocked = (l) => !draftValid(l.ui.draft) || (!!l.ui.draft.edit && draftSig(l.ui.draft) === l.ui.orig);
-function updateSubmit(l) { const b = $('.expense__submit', l.el); if (b) b.disabled = submitBlocked(l); }
+const EXP_FIELDS = { amount: '.amount-pill__input', what: '[data-input=what]', when: '[data-action=expense-when]' };
+function markExpenseErrors(l) {
+  const miss = l.ui.showReq ? expenseMissing(l.ui.draft) : [];
+  Object.entries(EXP_FIELDS).forEach(([k, sel]) => { const el = $(sel, l.el), box = el && el.closest('.input, .amount-pill'); if (box) box.classList.toggle('is-error', miss.includes(k)); });
+}
+function updateSubmit(l) {
+  const d = l.ui.draft, b = $('.expense__submit', l.el);
+  if (b) b.setAttribute('aria-disabled', String(submitBlocked(l)));
+  const msg = $('[data-slot=split-msg]', l.el);
+  if (msg) { const off = d.type === 'transfer' || !(d.amount > 0) ? 0 : shareSum(d) - d.amount; msg.textContent = off < 0 ? `${eur(-off)} left to assign` : off > 0 ? `${eur(off)} over the total` : ''; }
+  markExpenseErrors(l);
+}
+function trySaveExpense(l) {
+  const d = l.ui.draft;
+  if (d.edit && draftSig(d) === l.ui.orig) return;
+  const miss = expenseMissing(d);
+  if (miss.length) { l.ui.showReq = true; markExpenseErrors(l); const el = $(EXP_FIELDS[miss[0]], l.el); if (el) { el.focus(); revealInBox(el); } return; }
+  if (!draftValid(d)) { const m = $('[data-slot=split-msg]', l.el); if (m) { m.classList.remove('is-shake'); void m.offsetWidth; m.classList.add('is-shake'); revealInBox(m); } return; }
+  saveExpense(l);
+}
 const AmountPill = (name, value, currency, aria) => `<label class="amount-pill"><input class="amount-pill__input" data-input="${name}" inputmode="decimal" value="${value}" aria-label="${aria}"><button class="currency" data-action="currency">${esc(currency)}${Icon('keyboard_arrow_down', 20)}</button></label>`;
-const draftValid = (d) => d.amount > 0 && d.what.trim() && d.shares.some((s) => s.included) && d.shares.reduce((a, s) => a + (s.included ? s.amount : 0), 0) === d.amount;
-const SplitRow = (s, i, d) => `
+const SplitRow = (s, i, d) => {
+  const editable = d.split === 'unequal' && s.included, manual = editable && s.locked;
+  return `
   <div class="split-row${s.included ? '' : ' is-off'}" data-index="${i}">
     <button style="display:flex;align-items:center;gap:12px;align-self:stretch" data-action="toggle-share" data-index="${i}">${Checkbox(s.included)}<span class="split-row__name">${M(s.member).name}${s.member === S.me ? Tag('Me', 'accent') : ''}</span></button>
-    <label class="amount-cell${d.split === 'unequal' ? '' : ' amount-cell--static'}">${d.split === 'unequal' && s.included
-      ? `<input class="amount-cell__input" data-input="share" data-index="${i}" inputmode="decimal" value="${money(s.amount)}" aria-label="${M(s.member).name}'s share">`
+    <label class="amount-cell${manual ? ' is-manual' : ''}${d.split === 'unequal' ? '' : ' amount-cell--static'}"><span class="amount-cell__dot" aria-hidden="true"></span>${editable
+      ? `<input class="amount-cell__input" data-input="share" data-index="${i}" inputmode="decimal" value="${money(s.amount)}" ${d.amount > 0 ? '' : 'readonly'} aria-label="${M(s.member).name}'s share">`
       : `<span class="amount-cell__value">${money(s.included ? s.amount : 0)}</span>`}<span class="amount-cell__currency">${d.currency}</span></label>
   </div>`;
+};
 SCREENS.expense = {
   render(l) {
+    afterDinner();
     if (l.ui.built) return; l.ui.built = true;
     const d = l.ui.draft = l.ui.draft || (l.params.edit ? txDraft(S.transactions.find((t) => t.id === l.params.edit)) : newDraft()), edit = !!d.edit, tr = d.type === 'transfer';
-    if (edit && !l.ui.orig) l.ui.orig = draftSig(d);
+    if (!l.ui.orig) l.ui.orig = draftSig(d);
     l.el.innerHTML = `<div class="screen__scroll"><div class="page">
-      ${NavHeader(edit ? 'Edit expense' : 'Add expense')}
+      ${NavHeader(edit ? 'Edit expense' : 'Add expense', 'expense-back')}
       ${edit ? '' : `<div class="expense__segmented">${Segmented([['paid', 'Paid'], ['received', 'Received'], ['transfer', 'Transfer']], d.type, 'expense-type')}</div>`}
       <div class="expense__amount">
         ${edit || tr ? '' : Button('Scan receipt with AI', { variant: 'ai', after: Icon('auto_awesome', 20), action: 'ai-open' })}
@@ -1054,11 +1263,12 @@ SCREENS.expense = {
         ${Field(tr ? 'From' : 'Paid by', Select(M(d.paidBy).name, { action: 'paid-by' }))}
         ${tr ? Field('To', Select(M(d.to).name, { action: 'transfer-to' })) : Field('Split', Select(d.split === 'equal' ? 'Equally' : 'Unequally', { action: 'split-mode' }))}
       </div>
-      ${tr ? '<div class="expense__split"></div>' : `<div class="split-list expense__split">${d.shares.map((s, i) => SplitRow(s, i, d)).join('')}</div>`}
-      ${Button(edit ? 'Save changes' : 'Add expense', { cls: 'btn--block expense__submit', action: 'save-expense', disabled: submitBlocked(l) })}
+      ${tr ? '<div class="expense__split"></div>' : `<div class="split-list expense__split">${d.shares.map((s, i) => SplitRow(s, i, d)).join('')}</div><p class="split-msg" data-slot="split-msg" role="status"></p>`}
+      ${Button(edit ? 'Save changes' : 'Add expense', { cls: 'btn--block expense__submit', action: 'save-expense', disabled: submitBlocked(l), soft: true })}
       ${edit ? Button('Delete expense', { variant: 'tertiary', cls: 'btn--block expense__delete', action: 'delete-tx', data: `data-tx="${d.edit}"` }) : ''}
     </div></div>`;
-    fitAmount(l);
+    fitAmount(l); syncExpense(l);
+    document.fonts?.ready.then(() => l.el.isConnected && syncExpense(l));
   },
 };
 function fitAmount(l) {
@@ -1071,15 +1281,20 @@ function syncExpense(l) {
   $$('.split-row', l.el).forEach((row) => {
     const s = d.shares[+row.dataset.index];
     const inp = $('.amount-cell__input', row), val = $('.amount-cell__value', row);
-    if (inp && inp !== document.activeElement) inp.value = money(s.amount);
+    if (inp) {
+      if (inp !== document.activeElement) inp.value = money(s.amount);
+      inp.readOnly = !(d.amount > 0);
+      inp.style.width = Math.ceil(textW(inp.value || '0') + 2) + 'px';
+    }
     if (val) val.textContent = money(s.included ? s.amount : 0);
+    $('.amount-cell', row).classList.toggle('is-manual', d.split === 'unequal' && s.included && s.locked);
   });
   updateSubmit(l);
 }
 function rerenderSplit(l) {
   const d = l.ui.draft;
   $('.split-list', l.el).innerHTML = d.shares.map((s, i) => SplitRow(s, i, d)).join('');
-  updateSubmit(l);
+  syncExpense(l);
 }
 
 /* ---------- 06.1 · Settle up ---------- */
@@ -1091,9 +1306,8 @@ SCREENS.settle = {
     l.el.innerHTML = `<div class="screen__scroll"><div class="page">
       ${NavHeader('Settle up')}
       <div class="settle">
-        <div class="settle__art">${PayArt()}</div>
+        <div class="settle__pair">${Avatar(S.me, 'xl')}<span class="settle__flow" aria-hidden="true"><svg viewBox="0 0 72 24"><path class="settle__dash" d="M4 12H64"></path><path class="settle__head" d="M60 6L67 12L60 18"></path></svg></span><span class="settle__to">${Avatar(to, 'xl')}</span></div>
         <div class="settle__main">
-        <div class="settle__pair">${Avatar(S.me, 'xl')}<span class="settle__arrow" aria-hidden="true">${Icon('arrow_forward', 25)}</span>${Avatar(to, 'xl')}</div>
         <div class="expense__amount">
           <span class="expense__or">You are paying ${M(to).name}</span>
           ${AmountPill('settle-amount', money(amount), l.ui.currency, 'Amount to pay')}
@@ -1110,18 +1324,6 @@ SCREENS.settle = {
 };
 
 const SETTLE_FULL = '';
-const PayArt = () => `<span class="celebrate pay-art is-enter" aria-hidden="true"><svg viewBox="0 0 200 150">
-  <circle class="c-blob" cx="100" cy="80" r="62"></circle>
-  <circle class="c-sun" cx="152" cy="36" r="16"></circle>
-  <circle class="c-ring" cx="100" cy="80" r="50"></circle>
-  <g class="pa-card"><rect x="62" y="58" width="76" height="50" rx="8"></rect><rect class="pa-card__stripe" x="62" y="68" width="76" height="9"></rect><rect class="pa-card__chip" x="72" y="86" width="14" height="10" rx="2"></rect></g>
-  <g class="pa-coin pa-coin--1"><circle cx="138" cy="104" r="15"></circle><text x="138" y="109.5" text-anchor="middle">€</text></g>
-  <g class="pa-coin pa-coin--2"><circle cx="58" cy="52" r="11"></circle><text x="58" y="56.5" text-anchor="middle">€</text></g>
-  <path class="c-spark c-spark--1" d="M34 96l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"></path>
-  <path class="c-spark c-spark--2" d="M172 72l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"></path>
-  <circle class="c-dot c-dot--2" cx="120" cy="18" r="3"></circle>
-  <circle class="c-dot c-dot--3" cx="26" cy="60" r="3"></circle>
-</svg></span>`;
 function updateSettleHint(l) {
   const max = l.params.amount, v = l.ui.amount, c = l.ui.currency;
   const btn = $('[data-action=pay]', l.el), hint = $('[data-slot=settle-hint]', l.el), st = $('[data-slot=settle-status]', l.el), name = M(l.params.to).name;
@@ -1188,7 +1390,7 @@ SCREENS.map = {
         ${route}
         ${plans.map((_, i) => `<button class="pin${i === sel ? ' is-active' : ''}" style="left:${pos(i)[0]}%;top:${pos(i)[1]}%" data-action="pin" data-index="${i}">${i + 1}</button>`).join('')}
       </div>
-      <div class="map-top">${IconButton('arrow_back_ios_new', { action: 'back', label: 'Back' })}<span class="tag">Today · Sat, Sep 26</span></div>
+      <div class="map-top">${IconButton('arrow_back_ios_new', { action: 'back', label: 'Back' })}<span class="tag">Today · ${dayLabel(S.today)}</span></div>
       <div class="card map-card">
         <div class="map-card__media${PHOTO[key] ? ' has-photo' : ''}" data-plan-photo="${esc(key)}"${PHOTO[key] ? ` style="background-image:url('${PHOTO[key]}')"` : ''}><span class="map-card__fallback">${Icon(p.poll ? 'how_to_vote' : 'photo_camera', 25)}</span></div>
         <div class="map-card__head"><span class="map-card__num">${sel + 1}</span><span class="list-row__main"><span class="explore-card__name">${esc(p.title)}</span><span class="list-row__sub">${p.time} · ${eventStatus(S.today, p.time) === 'done' ? 'Done' : 'Coming up'}</span></span></div>
@@ -1276,7 +1478,6 @@ function createPoll(u) {
   toast('Poll created · the group has been notified');
   addAlert(S.me, 'You created a poll: ' + p.question, { poll: 1 });
   syncChrome();
-  later(() => notify('Ari started a poll', p.question + ' Vote before it closes.', () => focusPlan(S.poll && S.poll.status === 'live' ? '.poll' : '[data-decided]'), 3000), 2700);
   later(() => startPollClock(p), 5700);
 }
 function addPick(u) {
@@ -1337,7 +1538,7 @@ function closePoll() {
 function showPollResults() {
   const p = S.poll; if (!p) return;
   const { voted, max } = pollStats(p);
-  openSheet(SheetHead('Poll results') + `<div class="poll" style="margin:0"><div><h3 class="poll__question" style="margin:0">${esc(p.question)}</h3><p class="poll__hint">Closed · ${esc(p.winnerName)} won${p.tieBroken ? ' · Tie broken by the organizer' : ''}</p></div>
+  openSheet(SheetHead('Poll results') + `<div class="poll" style="margin:0"><div><h3 class="poll__question" style="margin:0">${esc(p.question)}</h3><p class="poll__hint">Closed · ${esc(p.winnerName)} won${p.tieBroken ? ' · Tie broken by the organiser' : ''}</p></div>
     <div class="poll__options">${p.options.map((o) => PollOption(o, p, max, true)).join('')}</div><div class="poll__footer">${voted} of ${S.trip.memberIds.length} voted</div></div>`);
 }
 function showPlace(name) {
@@ -1376,10 +1577,10 @@ function openAI(l) {
     scan.remove(); res.hidden = false;
   }, RM ? 0 : 1800);
 }
-function aiFill(l, text = '') {
-  const d = aiDraft(!!text.trim()); l.ui.draft = d;
+function aiFill(l, d) {
+  d.edit = l.ui.draft.edit; l.ui.draft = d;
   const page = $('.page', l.el), or = $('.expense__or', l.el), submit = $('.expense__submit', l.el);
-  submit.disabled = true;
+  submit.setAttribute('aria-disabled', 'true');
   page.classList.add('is-reading'); or.textContent = 'Reading receipt…';
   const flash = (el) => { el.classList.remove('is-flash'); void el.offsetWidth; el.classList.add('is-flash'); };
   later(() => {
@@ -1391,7 +1592,6 @@ function aiFill(l, text = '') {
       const type = () => { w.value = d.what.slice(0, ++i); if (i < d.what.length) later(type, RM ? 0 : 22); };
       if (RM) w.value = d.what; else type();
     }, 120);
-    later(() => { const b = $('[data-action=paid-by]', l.el); $('.input__value', b).textContent = M(d.paidBy).name; flash(b); }, 240);
     later(() => {
       const b = $('[data-action=split-mode]', l.el); $('.input__value', b).textContent = d.split === 'equal' ? 'Equally' : 'Unequally'; flash(b);
       rerenderSplit(l);
@@ -1402,7 +1602,7 @@ function aiFill(l, text = '') {
         set(0);
         later(() => {
           countUp(0, s.amount, 380, set);
-          if (d.split === 'unequal' && S.receipt.wineExcluded.includes(s.member)) flash($('.amount-cell', row));
+          if (d.split === 'unequal' && (s.locked || !s.included)) flash($('.amount-cell', row));
         }, 120 * (i + 1));
       });
       later(() => syncExpense(l), 120 * (d.shares.length + 1) + 400);
@@ -1430,7 +1630,7 @@ function saveExpense(l) {
 function pay(l) {
   const btn = $('[data-action=pay]', l.el), amt = Math.min(l.ui.amount, l.params.amount), left = l.params.amount - amt;
   const c = l.ui.currency || '€';
-  btn.disabled = true; btn.innerHTML = `${Icon('progress_activity', 20).replace('icon ', 'icon spin ')}Processing…`;
+  btn.classList.add('is-busy'); btn.setAttribute('aria-busy', 'true'); btn.innerHTML = `${Icon('progress_activity', 20).replace('icon ', 'icon spin ')}Processing…`;
   later(() => {
     const prev = balances();
     S.payments.push({ from: S.me, to: l.params.to, amount: amt });
@@ -1490,6 +1690,10 @@ function addMember(name, color = 'yellow') {
 const layerOf = (el) => Object.values(stacks).flat().find((l) => l.el.contains(el)) || topLayer();
 const actions = {
   back: () => pop(),
+  'plan-back': (el) => { const l = layerOf(el); if (planSig(l.ui) !== l.ui.initSig) askSave('You’ve started adding this plan.', () => trySavePlan(l)); else pop(); },
+  'expense-back': (el) => { const l = layerOf(el); if (draftSig(l.ui.draft) !== l.ui.orig) askSave(l.ui.draft.edit ? 'You’ve changed this expense.' : 'You’ve started adding this expense.', () => trySaveExpense(l)); else pop(); },
+  'discard-yes': () => { saveCb = null; closeSheet(true); pop(); },
+  'save-yes': () => { const cb = saveCb; saveCb = null; closeSheet(true); cb && cb(); },
   soon,
   restart: () => {
     $('#restart-pill').classList.remove('is-in');
@@ -1508,6 +1712,9 @@ const actions = {
     skyNext(el.closest('.screen'));
   },
   'open-past': (el) => push('pastTrip', { id: el.dataset.id }),
+  'trips-year': (el) => { const l = layerOf(el); openPicker('Show trips from', [{ value: '', label: 'All years' }, ...(l.ui.years || []).map((y) => ({ value: String(y), label: String(y) }))], S.tripsYear ? String(S.tripsYear) : '', (v) => { S.tripsYear = v ? +v : null; S.calMonth = null; SCREENS.trips.render(l); }); },
+  'cal-step': (el) => calStep(layerOf(el), +el.dataset.dir),
+  'trips-view': (el) => { S.tripsView = el.dataset.value; SCREENS.trips.render(layerOf(el)); },
   'trip-tab': (el) => { const l = layerOf(el); l.ui.tab = el.dataset.tab; SCREENS.trip.render(l); },
   'exp-tab': (el) => { const l = layerOf(el); l.ui.expTab = el.dataset.value; SCREENS.trip.render(l); },
   'toggle-day': (el) => { const id = el.dataset.id; S.dayOpen[id] = !S.dayOpen[id]; el.closest('.accordion').classList.toggle('is-collapsed', !S.dayOpen[id]); el.setAttribute('aria-expanded', S.dayOpen[id]); },
@@ -1526,7 +1733,8 @@ const actions = {
     const count = p.options.filter((o) => (p.votes[o.id] || []).includes(S.me)).length;
     if (!mine && count >= p.maxSelect) {
       if (p.maxSelect === 1) { p.options.forEach((o) => (p.votes[o.id] = (p.votes[o.id] || []).filter((m) => m !== S.me))); p.votes[id].push(S.me); patchCurrent(); return; }
-      const node = el.closest('.poll-option'); node.classList.remove('is-shake'); void node.offsetWidth; node.classList.add('is-shake'); return;
+      const node = el.closest('.poll-option'); node.classList.remove('is-shake'); void node.offsetWidth; node.classList.add('is-shake');
+      toast(`You can pick up to ${p.maxSelect}`, 'info', 'toast--info'); return;
     }
     p.votes[id] = mine ? list.filter((m) => m !== S.me) : [...list, S.me];
     patchCurrent();
@@ -1590,23 +1798,29 @@ const actions = {
     </div>
     <div class="list" style="margin-top:16px">${ListRow({ lead: `<span class="icon-circle icon-circle--soft icon-circle--danger">${Icon('logout', 20)}</span>`, title: 'Leave trip', action: 'soon', chevron: false, cls: 'list-row--danger' })}</div>`);
   },
+  'member-invite': () => { navigator.clipboard?.writeText(location.href).catch(() => {}); toast('Invite link copied · share it with anyone', 'link'); },
+  'member-leave': () => {
+    const owe = transfers().find((t) => t.from === S.me), due = transfers().filter((t) => t.to === S.me).reduce((s, t) => s + t.amount, 0);
+    if (owe) return openSheet(`<h2 class="modal__title">Settle up first</h2><p class="modal__text">You owe ${eur(owe.amount)} to ${M(owe.to).name}. Settle up before leaving ${esc(S.trip.name)}.</p><div class="btn-row">${Button('Cancel', { variant: 'tertiary', action: 'sheet-close' })}${Button('Settle up', { action: 'leave-settle', data: `data-to="${owe.to}" data-amount="${owe.amount}"` })}</div>`, { modal: true });
+    if (due) return openSheet(`<h2 class="modal__title">Wait for your money</h2><p class="modal__text">The group still owes you ${eur(due)}. You can leave once everyone has paid.</p>${Button('OK', { cls: 'btn--block', action: 'sheet-close' })}`, { modal: true });
+    openSheet(Confirm(`Leave ${esc(S.trip.name)}?`, 'You won’t see the plans, polls or expenses any more.', 'Leave', 'soon'), { modal: true });
+  },
+  'leave-settle': (el) => { closeSheet(true); push('settle', { to: el.dataset.to, amount: +el.dataset.amount }); },
   'trip-share': () => { closeSheet(); navigator.clipboard?.writeText(location.href).catch(() => {}); toast('Invite link copied · share it with anyone'); },
   'trip-members': () => { closeSheet(true); if (topLayer().type !== 'members') push('members'); },
   'trip-mute': (el) => { S.trip.muted = !S.trip.muted; const t = $('.toggle', el); t.classList.toggle('is-on', S.trip.muted); t.setAttribute('aria-checked', S.trip.muted); toast(S.trip.muted ? 'Notifications muted for ' + S.trip.name : 'Notifications on for ' + S.trip.name, S.trip.muted ? 'notifications_off' : 'notifications'); },
   'trip-edit': () => { closeSheet(); soon(); },
   'trip-edit-old': () => {
-    const date = (name, v) => `<label class="input"><input class="input__control" type="date" data-input="${name}" value="${v}"></label>`;
+    const date = (name, v) => DateInput(name, v);
     openSheet(SheetHead('Edit trip details') + `<div class="stack-16">
       ${Field('Trip name', TextInput({ value: S.trip.name, name: 'trip-name', attrs: 'maxlength="24" autocomplete="off"' }))}
-      <div class="btn-row">${Field('Start', date('trip-start', S.trip.startISO))}${Field('End', date('trip-end', S.trip.endISO))}</div>
+      <div class="when-field">${Field('Start', date('trip-start', S.trip.startISO))}${Field('End', date('trip-end', S.trip.endISO))}</div>
       ${Button('Save changes', { cls: 'btn--block', action: 'trip-save' })}</div>`);
   },
   'trip-save': () => {
     const n = $('[data-input=trip-name]').value.trim(), s = $('[data-input=trip-start]').value, e = $('[data-input=trip-end]').value;
-    const f = (iso, o) => new Date(iso + 'T12:00').toLocaleDateString('en-US', o);
     if (n) S.trip.name = n;
-    if (s && e && s <= e) Object.assign(S.trip, { startISO: s, endISO: e, start: f(s, { month: 'short', day: 'numeric' }), end: f(e, { month: 'short', day: 'numeric' }),
-      dates: `${f(s, { weekday: 'short', month: 'short', day: 'numeric' })} – ${f(e, { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}` });
+    if (s && e && s <= e) Object.assign(S.trip, { startISO: s, endISO: e, start: fShort(s), end: fShort(e), dates: fRange(s, e) });
     closeSheet(); refresh(); toast('Trip details updated');
   },
   // Account
@@ -1640,10 +1854,10 @@ const actions = {
   'plan-type': (el) => { const l = layerOf(el); openPicker('Type', ['Restaurant', 'Activity', 'Transport', 'Stay'].map((v) => ({ value: v, label: v })), l.ui.type, (v) => { l.ui.type = v; SCREENS.plan.render(l); }); },
   'plan-mode': (el) => { const l = layerOf(el); l.ui.mode = el.dataset.value; SCREENS.plan.render(l); },
   'plan-toggle': (el) => { const l = layerOf(el); l.ui[el.dataset.key] = !l.ui[el.dataset.key]; SCREENS.plan.render(l); },
-  'add-option': (el) => { const l = layerOf(el); l.ui.options.push(''); SCREENS.plan.render(l); const f = $(`[data-input=option][data-index="${l.ui.options.length - 1}"]`, l.el); f?.focus(); if (f) setTimeout(() => f.scrollIntoView({ block: 'center', behavior: 'smooth' }), 320); },
+  'add-option': (el) => { const l = layerOf(el); l.ui.options.push(''); SCREENS.plan.render(l); const f = $(`[data-input=option][data-index="${l.ui.options.length - 1}"]`, l.el); f?.focus(); if (f) setTimeout(() => revealInBox(f), 320); },
   'clear-option': (el) => { const l = layerOf(el); l.ui.options[+el.dataset.index] = ''; SCREENS.plan.render(l); },
-  'create-poll': (el) => { const l = layerOf(el); if (showPlanError(l, true)) createPoll(l.ui); },
-  'add-pick': (el) => { const l = layerOf(el); if (showPlanError(l, true)) addPick(l.ui); },
+  'create-poll': (el) => trySavePlan(layerOf(el)),
+  'add-pick': (el) => trySavePlan(layerOf(el)),
   // Expense
   'expense-type': (el) => {
     const l = layerOf(el), d = l.ui.draft, was = d.type; if (was === el.dataset.value) return;
@@ -1667,8 +1881,12 @@ const actions = {
   'toggle-share': (el) => { const l = layerOf(el), d = l.ui.draft, s = d.shares[+el.dataset.index]; s.included = !s.included; s.locked = false; resplit(d); rerenderSplit(l); },
   'ai-open': (el) => openAI(layerOf(el)),
   'ai-chip': () => { const t = $('[data-input=ai-text]'); t.value = 'Remove the wine for Ren and Nic'; $('[data-action=ai-apply]').disabled = false; },
-  'ai-apply': () => { const l = topLayer(), text = $('[data-input=ai-text]')?.value || ''; closeSheet(); aiFill(l, text); },
-  'save-expense': (el) => saveExpense(layerOf(el)),
+  'ai-apply': () => {
+    const l = topLayer(), res = aiParse($('[data-input=ai-text]')?.value || '', l.ui.draft.paidBy);
+    if (res.error) { toast(res.error, 'info', 'toast--info'); $('[data-input=ai-text]')?.focus(); return; }
+    closeSheet(); aiFill(l, res.draft);
+  },
+  'save-expense': (el) => trySaveExpense(layerOf(el)),
   // Settle
   settle: (el) => push('settle', { to: el.dataset.to, amount: +el.dataset.amount }),
   'pay-method': (el) => { const l = layerOf(el); openPicker('Payment method', PAY_METHODS.map((m) => ({ value: m.value, label: m.value, sub: m.sub === 'Balance' ? 'Balance ' + eur(S.card.balance) : m.sub, lead: MethodMark(m.value) })), l.ui.method, (v) => { l.ui.method = v; $('[data-action=pay-method]', l.el).innerHTML = MethodInner(v); }); },
@@ -1698,6 +1916,7 @@ document.addEventListener('click', (e) => {
   const sug = e.target.closest('[data-suggest]');
   if (sug) return;
   const el = e.target.closest('[data-action]');
+  if (el && Date.now() - calSwiped < 300 && el.closest('[data-swipe]')) return;
   if (el && !el.disabled && actions[el.dataset.action]) { e.preventDefault(); actions[el.dataset.action](el, e); return; }
   if (!el && e.target.closest('#device') && !e.target.closest('input, textarea, select, label, a, button, #overlay-host, #push-host')) showRestart();
 });
@@ -1728,30 +1947,38 @@ document.addEventListener('input', (e) => {
     else if (!letter && !av.classList.contains('avatar--ghost')) { av.className = 'avatar avatar--md avatar--ghost'; av.innerHTML = Icon('person', 20); }
     $$('[data-action=member-save]', l.el).forEach((b) => (b.disabled = !rows.some((r) => r.value.trim())));
   }
-  if (k === 'plan-date' || k === 'plan-time') { if (k === 'plan-date') { const id = dayOfIso(t.value); if (id) l.ui.day = id; else { t.value = isoOfDay(l.ui.day); } } else if (t.value) l.ui.time = t.value; showPlanError(l, false); }
+  if (t.classList.contains('input__native') && t.value) { const sh = $('.input__value', t.parentNode); if (sh) sh.textContent = t.type === 'date' ? fDay(t.value) : t.value; }
+  if (k === 'plan-date' || k === 'plan-time') { if (k === 'plan-date') { const id = dayOfIso(t.value); if (id) l.ui.day = id; else { t.value = isoOfDay(l.ui.day); const sh = $('.input__value', t.parentNode); if (sh) sh.textContent = fDay(t.value); } } else if (t.value) l.ui.time = t.value; showPlanError(l, false); }
   if (k === 'profile-name') { S.profileDraft.name = t.value; profilePreview(); }
   if (k === 'settle-amount') {
-    l.ui.amount = evalMoney(t.value); fitAmount(l); updateSettleHint(l);
+    const v = cleanMoney(t.value); if (v !== t.value) t.value = v;
+    l.ui.amount = parseMoney(v); fitAmount(l); updateSettleHint(l);
   }
-  if (k === 'question') { l.ui.question = t.value; $('[data-slot=counter]', l.el).textContent = t.value.length + '/30'; const b = $('[data-action=create-poll]', l.el); if (b) b.disabled = !planReady(l.ui); }
+  if (k === 'question') { l.ui.question = t.value; $('[data-slot=counter]', l.el).textContent = t.value.length + '/30'; markPlanErrors(l); }
   if (k === 'option' || k === 'place') {
     if (k === 'option') l.ui.options[+t.dataset.index] = t.value; else l.ui.place = t.value;
     suggestFor(t);
     const filled = l.ui.options.filter((o) => o.trim()).length;
-    const btn = $('[data-action=create-poll]', l.el) || $('[data-action=add-pick]', l.el);
-    if (btn) btn.disabled = k === 'option' ? !planReady(l.ui) : !l.ui.place.trim();
+    markPlanErrors(l);
     const hint = $('[data-slot=multi-hint]', l.el); if (hint) hint.textContent = multiHint(l.ui.multiple, filled);
   }
-  if (k === 'amount') { const d = l.ui.draft; d.amountText = t.value; d.amount = evalMoney(t.value); resplit(d); fitAmount(l); syncExpense(l); }
+  if (k === 'amount') { const d = l.ui.draft, v = cleanMoney(t.value); if (v !== t.value) t.value = v; d.amountText = v; d.amount = parseMoney(v); resplit(d); fitAmount(l); syncExpense(l); }
   if (k === 'what') { l.ui.draft.what = t.value; l.ui.draft.autoWhat = false; syncExpense(l); }
-  if (k === 'share') { const d = l.ui.draft, s = d.shares[+t.dataset.index]; s.amount = evalMoney(t.value); s.locked = true; resplit(d); syncExpense(l); }
+  if (k === 'share') { const d = l.ui.draft, s = d.shares[+t.dataset.index], v = cleanMoney(t.value); if (v !== t.value) t.value = v; s.amount = parseMoney(v); s.locked = true; resplit(d); syncExpense(l); }
 });
 document.addEventListener('focusin', (e) => {
   const t = e.target, k = t.dataset?.input;
   if (k === 'option' || k === 'place') suggestFor(t);
+  if (k === 'share' && !(layerOf(t).ui.draft.amount > 0)) { $('.amount-pill__input', layerOf(t).el)?.focus(); return; }
   if (k === 'amount' && parseMoney(t.value) === 0) { t.value = ''; fitAmount(layerOf(t)); }
-  if (k === 'share' || k === 'settle-amount' || (k === 'amount' && t.value)) setTimeout(() => { const n = t.value.length; t.setSelectionRange?.(n, n); }, 0);
+  // Select the whole value so typing replaces it
+  if (k === 'share' || k === 'settle-amount' || k === 'amount') { selectOnFocus = t; setTimeout(() => { try { t.setSelectionRange(0, t.value.length); } catch (err) { t.select(); } }, 0); }
 });
+let selectOnFocus = null;
+document.addEventListener('mouseup', (e) => { if (selectOnFocus && e.target === selectOnFocus) e.preventDefault(); selectOnFocus = null; });
+document.addEventListener('change', (e) => { const t = e.target; if (t.classList?.contains('input__native') && t.value) { const sh = $('.input__value', t.parentNode); if (sh) sh.textContent = t.type === 'date' ? fDay(t.value) : t.value; } });
+// iOS: enable :active pressed states on touch
+document.addEventListener('touchstart', () => {}, { passive: true });
 document.addEventListener('focusout', (e) => {
   const t = e.target, k = t.dataset?.input;
   if (k === 'option' || k === 'place') setTimeout(() => { if (!t.closest('.option-field')?.contains(document.activeElement)) $$('.suggestions').forEach((s) => s.remove()); }, 150);
@@ -1788,10 +2015,11 @@ function start() {
   timers.forEach(clearTimeout); timers = []; barMemory = {};
   closeSheet(true); $('#toast-host').innerHTML = ''; $('#push-host').innerHTML = '';
   S = structuredClone(DATA);
-  S.poll = null; S.lastTx = null;
+  S.poll = null; S.lastTx = null; S.tripsYear = null; S.tripsView = 'list'; S.calMonth = null; S.calDir = 0;
   S.days.forEach((d) => d.events.forEach((e, i) => (e.id = d.id + '-' + i)));
   S.dayOpen = Object.fromEntries(S.days.map((d) => [d.id, true]));
   S.itinRev = 0; S.seenBal = balances();
+  setClock('18:30');
   $('#restart-pill')?.classList.remove('is-in');
   $('#layers').innerHTML = '';
   stacks = { trips: [], card: [], alerts: [], account: [] };
